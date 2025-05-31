@@ -198,7 +198,14 @@
       },
       {
         "name": "bsp",
-        "files": [],
+        "files": [
+          {
+            "path": "Drivers/BSP/LED.c"
+          },
+          {
+            "path": "Drivers/BSP/LED.h"
+          }
+        ],
         "folders": []
       },
       {

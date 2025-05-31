@@ -2,15 +2,19 @@
 #include "Delay.h"
 #include "stm32f10x_exti.h"
 #include "misc.h"
+#include "LED.h"
 void RCC_config(uint32_t RCC_PLLMul_x);
 void NVIC_config();
 void EXTI_key_config();
 
 int main()
-{
+{   
     RCC_config(RCC_PLLMul_16); // Configure the system clock to 72MHz using PLL with HSE
+    LED_Init(); // Initialize the LEDs
+
     Delay_Init();
     Delay_ms(100); // Delay for 1 second to allow system stabilization
+
 }
 void RCC_config(uint32_t RCC_PLLMul_x)
 {
