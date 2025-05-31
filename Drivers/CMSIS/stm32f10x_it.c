@@ -24,6 +24,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f10x_it.h"
 
+
 /** @addtogroup STM32F10x_StdPeriph_Examples
   * @{
   */
@@ -153,8 +154,7 @@ void EXTI3_IRQHandler(void)
 {
   if (EXTI_GetITStatus(EXTI_Line3) != RESET) // Check if the interrupt is triggered
     {
-        // Handle the interrupt here
-        // For example, toggle an LED or send a message
+        LED0_Toggle();
         EXTI_ClearITPendingBit(EXTI_Line3); // Clear the interrupt pending bit
     }
 }

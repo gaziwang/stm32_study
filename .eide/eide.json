@@ -204,6 +204,12 @@
           },
           {
             "path": "Drivers/BSP/LED.h"
+          },
+          {
+            "path": "Drivers/BSP/Beep.c"
+          },
+          {
+            "path": "Drivers/BSP/Beep.h"
           }
         ],
         "folders": []

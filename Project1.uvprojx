@@ -674,6 +674,28 @@
         </Group>
         <Group>
           <GroupName>bsp</GroupName>
+          <Files>
+            <File>
+              <FileName>Beep.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Drivers\BSP\Beep.c</FilePath>
+            </File>
+            <File>
+              <FileName>Beep.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Drivers\BSP\Beep.h</FilePath>
+            </File>
+            <File>
+              <FileName>LED.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Drivers\BSP\LED.c</FilePath>
+            </File>
+            <File>
+              <FileName>LED.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Drivers\BSP\LED.h</FilePath>
+            </File>
+          </Files>
         </Group>
         <Group>
           <GroupName>user</GroupName>

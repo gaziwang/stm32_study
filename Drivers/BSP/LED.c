@@ -16,6 +16,8 @@ void LED_Init(void)
 
     GPIO_InitStructure.GPIO_Pin = GPIO_Pin_5; // Assuming the LED is connected to pin 5
     GPIO_Init(GPIOB, &GPIO_InitStructure);
+    GPIO_SetBits(GPIOB, GPIO_Pin_5); // Set pin 5 high to turn off the LED
+    GPIO_SetBits(GPIOE, GPIO_Pin_5); // Set pin 5 high to turn off the LED
 }
 void LED0_On(void)
 {
@@ -32,5 +34,13 @@ void LED1_On(void)
 void LED1_Off(void)
 {
     GPIO_SetBits(GPIOE, GPIO_Pin_5); // Set pin 5 low to turn off the LED
+}
+void LED0_Toggle(void)
+{
+    GPIOB->ODR ^= GPIO_Pin_5; // Toggle pin 5 state
+}
+void LED1_Toggle(void)
+{
+    GPIOE->ODR ^= GPIO_Pin_5; // Toggle pin 5 state
 }
 

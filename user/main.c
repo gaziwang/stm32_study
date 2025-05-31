@@ -3,18 +3,39 @@
 #include "stm32f10x_exti.h"
 #include "misc.h"
 #include "LED.h"
+#include "Beep.h"
 void RCC_config(uint32_t RCC_PLLMul_x);
-void NVIC_config();
-void EXTI_key_config();
+void NVIC_config(void);
+void EXTI_key_config(void);
 
 int main()
-{   
-    RCC_config(RCC_PLLMul_16); // Configure the system clock to 72MHz using PLL with HSE
-    LED_Init(); // Initialize the LEDs
+{
+    //    Delay_Init();
+    //    RCC_config(RCC_PLLMul_9); // Configure the system clock to 72MHz using PLL with HSE
+    LED_Init();  // Initialize the LEDs
+    BEEP_Init(); // Initialize the BEEP
+    LED0_On();    // Turn on LED0
+    LED1_Off();  // Turn off LED1
 
-    Delay_Init();
-    Delay_ms(100); // Delay for 1 second to allow system stabilization
+    BEEP_On(); // Turn on the BEEP
+    Delay_ms(100); // Delay for 100 milliseconds to allow system stabilization
+    BEEP_Off(); // Turn off the BEEP
 
+    LED0_Off(); // Turn off LED0
+    LED1_On();  // Turn on LED1
+
+    // while (1) {
+    //     LED0_On();     // Turn on LED0
+    //     LED1_Off();    // Turn off LED1
+    //     Delay_ms(100); // Delay for 1 second to allow system stabilization
+    //     BEEP_On();     // Turn on the BEEP
+    //     Delay_ms(100);
+    //     BEEP_Off();    // Turn off the BEEP
+    //     Delay_ms(100); // Wait for 1 second
+    //     LED0_Off();    // Turn off LED0
+    //     LED1_On();     // Turn on LED1
+    //     Delay_ms(100); // Delay for 1 second
+    // }
 }
 void RCC_config(uint32_t RCC_PLLMul_x)
 {
@@ -38,7 +59,7 @@ void RCC_config(uint32_t RCC_PLLMul_x)
     }
     RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOE, ENABLE); // Enable clock for GPIOE
 }
-void NVIC_config()
+void NVIC_config(void)
 {
     NVIC_PriorityGroupConfig(NVIC_PriorityGroup_1);
     NVIC_InitTypeDef NVIC_InitStructure;
@@ -48,7 +69,7 @@ void NVIC_config()
     NVIC_InitStructure.NVIC_IRQChannelCmd                = ENABLE;
     NVIC_Init(&NVIC_InitStructure);
 }
-void EXTI_key_config()
+void EXTI_key_config(void)
 {
     GPIO_InitTypeDef GPIO_InitStructure;
     GPIO_InitStructure.GPIO_Pin   = GPIO_Pin_3;       // Assuming the key is connected to pin 3

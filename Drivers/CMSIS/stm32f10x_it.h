@@ -25,6 +25,7 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f10x.h"
+#include "LED.h"
 
 /* Exported types ------------------------------------------------------------*/
 /* Exported constants --------------------------------------------------------*/
@@ -42,6 +43,7 @@ void PendSV_Handler(void);
 void SysTick_Handler(void);
 void EXTI0_IRQHandler(void);
 void EXTI9_5_IRQHandler(void);
+void EXTI3_IRQHandler(void);
 
 #endif /* __STM32F10x_IT_H */
 
