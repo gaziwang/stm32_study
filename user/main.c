@@ -1,6 +1,7 @@
 #include "stm32f10x.h"
 #include "Delay.h"
 #include "stm32f10x_exti.h"
+#include "stm32f10x_it.h"
 #include "misc.h"
 #include "LED.h"
 #include "Beep.h"
@@ -8,34 +9,20 @@ void RCC_config(uint32_t RCC_PLLMul_x);
 void NVIC_config(void);
 void EXTI_key_config(void);
 
-int main()
+int main(void)
 {
-    //    Delay_Init();
-    //    RCC_config(RCC_PLLMul_9); // Configure the system clock to 72MHz using PLL with HSE
-    LED_Init();  // Initialize the LEDs
-    BEEP_Init(); // Initialize the BEEP
-    LED0_On();    // Turn on LED0
-    LED1_Off();  // Turn off LED1
 
-    BEEP_On(); // Turn on the BEEP
-    Delay_ms(100); // Delay for 100 milliseconds to allow system stabilization
-    BEEP_Off(); // Turn off the BEEP
+    RCC_config(RCC_PLLMul_9);
+    Delay_Init(); // Configure the system clock to 72MHz using PLL with HSE
+    LED_Init();        // Initialize the LED
+    BEEP_Init();       // Initialize the BEEP
+    EXTI_key_config(); // Configure the external interrupt for the key
+    while (1)
+    {
+        
+    }
+    
 
-    LED0_Off(); // Turn off LED0
-    LED1_On();  // Turn on LED1
-
-    // while (1) {
-    //     LED0_On();     // Turn on LED0
-    //     LED1_Off();    // Turn off LED1
-    //     Delay_ms(100); // Delay for 1 second to allow system stabilization
-    //     BEEP_On();     // Turn on the BEEP
-    //     Delay_ms(100);
-    //     BEEP_Off();    // Turn off the BEEP
-    //     Delay_ms(100); // Wait for 1 second
-    //     LED0_Off();    // Turn off LED0
-    //     LED1_On();     // Turn on LED1
-    //     Delay_ms(100); // Delay for 1 second
-    // }
 }
 void RCC_config(uint32_t RCC_PLLMul_x)
 {
@@ -43,19 +30,32 @@ void RCC_config(uint32_t RCC_PLLMul_x)
     RCC_HSEConfig(RCC_HSE_ON);                    // Enable HSE
     ErrorStatus status = RCC_WaitForHSEStartUp(); // Wait for HSE to be ready
     if (status == SUCCESS) {
-        // Enable the FLASH prefetch buffer to improve performance by reducing wait states during memory access
+        // Flash性能优化（高频必配）
         FLASH_PrefetchBufferCmd(FLASH_PrefetchBuffer_Enable);
-        FLASH_SetLatency(FLASH_Latency_2);                   // Set Flash latency to 2 wait states
-        RCC_PLLConfig(RCC_PLLSource_HSE_Div1, RCC_PLLMul_x); // Configure PLL with HSE as source and multiplier of x
-        RCC_PLLCmd(ENABLE);                                  // Enable PLL
-        RCC_HCLKConfig(RCC_SYSCLK_Div1);                     // AHB = 72MHz
-        RCC_PCLK1Config(RCC_HCLK_Div2);                      // APB1 = 36MHz
-        RCC_PCLK2Config(RCC_HCLK_Div1);                      // APB2 = 72MHz
-        RCC_HSICmd(DISABLE);
-        while (RCC_GetFlagStatus(RCC_FLAG_PLLRDY) == RESET) {
-        }
-        RCC_SYSCLKConfig(RCC_SYSCLKSource_PLLCLK); // Set PLL as system clock source
+        FLASH_SetLatency(FLASH_Latency_2);
+
+        // 配置PLL（HSE→PLL→72MHz）
+        RCC_PLLConfig(RCC_PLLSource_HSE_Div1, RCC_PLLMul_x);
+        RCC_PLLCmd(ENABLE);
+        while (RCC_GetFlagStatus(RCC_FLAG_PLLRDY) == RESET); // 等待PLL锁定
+
+        // 总线分频（AHB=72MHz, APB1=36MHz, APB2=72MHz）
+        RCC_HCLKConfig(RCC_SYSCLK_Div1);
+        RCC_PCLK1Config(RCC_HCLK_Div2);
+        RCC_PCLK2Config(RCC_HCLK_Div1);
+
+        // 切换系统时钟到PLL（关键：先切时钟，再关HSI）
+        RCC_SYSCLKConfig(RCC_SYSCLKSource_PLLCLK);
+        SystemCoreClockUpdate(); // 更新全局时钟变量
+
+        RCC_HSICmd(DISABLE); // 系统稳定后，关闭未使用的HSI
     } else {
+        RCC_SYSCLKConfig(RCC_SYSCLKSource_HSI);
+        RCC_HCLKConfig(RCC_SYSCLK_Div1);
+        RCC_PCLK1Config(RCC_HCLK_Div1);
+        RCC_PCLK2Config(RCC_HCLK_Div1);
+        SystemCoreClockUpdate();
+        while (1); // 死循环提示错误（或自定义处理）
     }
     RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOE, ENABLE); // Enable clock for GPIOE
 }
@@ -70,7 +70,7 @@ void NVIC_config(void)
     NVIC_Init(&NVIC_InitStructure);
 }
 void EXTI_key_config(void)
-{
+{ // KEY1
     GPIO_InitTypeDef GPIO_InitStructure;
     GPIO_InitStructure.GPIO_Pin   = GPIO_Pin_3;       // Assuming the key is connected to pin 3
     GPIO_InitStructure.GPIO_Mode  = GPIO_Mode_IPU;    // Input Pull-Up mode
@@ -84,7 +84,7 @@ void EXTI_key_config(void)
     EXTI_InitTypeDef EXTI_InitStructure;
     EXTI_InitStructure.EXTI_Line    = EXTI_Line3;
     EXTI_InitStructure.EXTI_Mode    = EXTI_Mode_Interrupt;
-    EXTI_InitStructure.EXTI_Trigger = EXTI_Trigger_Rising_Falling;
+    EXTI_InitStructure.EXTI_Trigger = EXTI_Trigger_Falling;
     EXTI_InitStructure.EXTI_LineCmd = ENABLE;
     EXTI_Init(&EXTI_InitStructure);
 }

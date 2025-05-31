@@ -1,29 +1,59 @@
 #include "Delay.h"
 
-// 全局变量，用于记录延时时间
-volatile uint32_t SysTickCounter = 0;
-// Systick 初始化（1ms 中断）
-void Delay_Init(void) {
-    // 设置 Systick 时钟源为 HCLK（72MHz），重装载值为 72000-1（1ms）
-    if (SysTick_Config(SystemCoreClock / 1000)) {
-        // 如果失败，进入错误处理
-        while (1);
+// 全局变量：记录SysTick中断次数（用于毫秒延时）
+volatile uint32_t SysTick_Counter = 0;
+
+/**
+ * @brief 初始化SysTick定时器（配置为1ms中断）
+ * @note 依赖系统时钟（SystemCoreClock），需先配置系统时钟为72MHz
+ */
+void Delay_Init(void)
+{
+    // SysTick_Config函数功能：
+    // 1. 设置重装载值 = SystemCoreClock / 1000 - 1 （对应1ms中断）
+    // 2. 使能SysTick定时器
+    // 3. 选择时钟源为HCLK（系统时钟）
+    // 4. 使能SysTick中断
+    if (SysTick_Config(SystemCoreClock / 1000)) 
+    {
+        // 配置失败时进入死循环（如系统时钟未正确配置）
+        while (1); 
     }
 }
 
-
-// 毫秒延时函数
-void Delay_ms(uint32_t ms) {
-    uint32_t current = SysTickCounter;
-    while ((SysTickCounter - current) < ms);
+/**
+ * @brief SysTick中断服务函数（自动递增计数器）
+ * @note 需在启动文件（如startup_stm32f10x_hd.s）中映射中断向量
+ */
+void SysTick_Handler(void)
+{
+    SysTick_Counter++; // 每次1ms中断，计数器加1
 }
 
-// 微秒延时函数（适用于短时间延时）
-void Delay_us(uint32_t us) {
-    // 72MHz 下，每循环约 1/72 ≈ 0.0139us，需调整参数
-    us *= 72; // 1us ≈ 72 cycles
-    while (us--) {
-        __NOP(); // 空操作，确保编译器不优化掉循环
+/**
+ * @brief 毫秒延时函数（轮询SysTick计数器）
+ * @param ms: 延时毫秒数（范围：0~2^32-1）
+ */
+void Delay_ms(uint32_t ms)
+{
+    uint32_t start = SysTick_Counter; // 记录初始计数
+    while ((SysTick_Counter - start) < ms); // 等待计数达到目标
+}
+
+/**
+ * @brief 微秒延时函数（空指令循环）
+ * @param us: 延时微秒数（范围：0~2^32-1，实际受循环效率限制）
+ * @note 72MHz系统时钟下，1us ≈ 72个空指令周期（需根据实际时钟调整）
+ */
+void Delay_us(uint32_t us)
+{
+    // 72MHz系统时钟下，1个空指令（__NOP()）耗时约 1/72 ≈ 0.0139us
+    // 因此 1us ≈ 72 个空指令周期
+    us *= 72; 
+
+    while (us--)
+    {
+        __NOP(); // 空操作指令（编译器不会优化掉循环）
     }
 }
 

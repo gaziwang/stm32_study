@@ -25,6 +25,7 @@
 ".\objects\stm32f10x_tim.o"
 ".\objects\stm32f10x_usart.o"
 ".\objects\stm32f10x_wwdg.o"
+".\objects\stm32f10x_it.o"
 ".\objects\delay.o"
 ".\objects\beep.o"
 ".\objects\led.o"

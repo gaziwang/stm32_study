@@ -29,5 +29,6 @@
 .\objects\main.o: .\Drivers\CMSIS\stm32f10x_wwdg.h
 .\objects\main.o: .\Drivers\CMSIS\misc.h
 .\objects\main.o: .\Drivers\CMSIS\system\Delay.h
+.\objects\main.o: .\Drivers\CMSIS\stm32f10x_it.h
 .\objects\main.o: .\Drivers\BSP\LED.h
 .\objects\main.o: .\Drivers\BSP\Beep.h

@@ -26,6 +26,8 @@
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f10x.h"
 #include "LED.h"
+#include "Delay.h"
+void LED0_Toggle(void);
 
 /* Exported types ------------------------------------------------------------*/
 /* Exported constants --------------------------------------------------------*/
@@ -40,7 +42,6 @@ void UsageFault_Handler(void);
 void SVC_Handler(void);
 void DebugMon_Handler(void);
 void PendSV_Handler(void);
-void SysTick_Handler(void);
 void EXTI0_IRQHandler(void);
 void EXTI9_5_IRQHandler(void);
 void EXTI3_IRQHandler(void);
