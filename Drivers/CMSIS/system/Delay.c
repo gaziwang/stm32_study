@@ -11,10 +11,6 @@ void Delay_Init(void) {
     }
 }
 
-// Systick 中断服务函数（全局变量自增）
-void SysTick_Handler(void) {
-    SysTickCounter++;
-}
 
 // 毫秒延时函数
 void Delay_ms(uint32_t ms) {

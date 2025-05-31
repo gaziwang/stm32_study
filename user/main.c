@@ -2,9 +2,15 @@
 #include "Delay.h"
 #include "stm32f10x_exti.h"
 #include "misc.h"
+void RCC_config(uint32_t RCC_PLLMul_x);
+void NVIC_config();
+void EXTI_key_config();
+
 int main()
 {
+    RCC_config(RCC_PLLMul_16); // Configure the system clock to 72MHz using PLL with HSE
     Delay_Init();
+    Delay_ms(100); // Delay for 1 second to allow system stabilization
 }
 void RCC_config(uint32_t RCC_PLLMul_x)
 {
@@ -14,7 +20,7 @@ void RCC_config(uint32_t RCC_PLLMul_x)
     if (status == SUCCESS) {
         // Enable the FLASH prefetch buffer to improve performance by reducing wait states during memory access
         FLASH_PrefetchBufferCmd(FLASH_PrefetchBuffer_Enable);
-		FLASH_SetLatency(FLASH_Latency_2); // Set Flash latency to 2 wait states
+        FLASH_SetLatency(FLASH_Latency_2);                   // Set Flash latency to 2 wait states
         RCC_PLLConfig(RCC_PLLSource_HSE_Div1, RCC_PLLMul_x); // Configure PLL with HSE as source and multiplier of x
         RCC_PLLCmd(ENABLE);                                  // Enable PLL
         RCC_HCLKConfig(RCC_SYSCLK_Div1);                     // AHB = 72MHz
@@ -56,13 +62,4 @@ void EXTI_key_config()
     EXTI_InitStructure.EXTI_Trigger = EXTI_Trigger_Rising_Falling;
     EXTI_InitStructure.EXTI_LineCmd = ENABLE;
     EXTI_Init(&EXTI_InitStructure);
-}
-void EXTI3_IRQHandler(void)
-{
-    if (EXTI_GetITStatus(EXTI_Line3) != RESET) // Check if the interrupt is triggered
-    {
-        // Handle the interrupt here
-        // For example, toggle an LED or send a message
-        EXTI_ClearITPendingBit(EXTI_Line3); // Clear the interrupt pending bit
-    }
 }

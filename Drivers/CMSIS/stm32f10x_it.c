@@ -151,7 +151,12 @@ void SysTick_Handler(void)
   */
 void EXTI3_IRQHandler(void)
 {
-  
+  if (EXTI_GetITStatus(EXTI_Line3) != RESET) // Check if the interrupt is triggered
+    {
+        // Handle the interrupt here
+        // For example, toggle an LED or send a message
+        EXTI_ClearITPendingBit(EXTI_Line3); // Clear the interrupt pending bit
+    }
 }
 
 /**
