@@ -210,6 +210,18 @@
           },
           {
             "path": "Drivers/BSP/Beep.h"
+          },
+          {
+            "path": "Drivers/BSP/key.c"
+          },
+          {
+            "path": "Drivers/BSP/key.h"
+          },
+          {
+            "path": "Drivers/BSP/lightsensor.c"
+          },
+          {
+            "path": "Drivers/BSP/lightsensor.h"
           }
         ],
         "folders": []
@@ -353,8 +365,8 @@
         "bin": "",
         "baseAddr": "",
         "cpuInfo": {
-          "vendor": "null",
-          "cpuName": "null"
+          "vendor": "ST",
+          "cpuName": "STM32F103ZE"
         },
         "proType": 1,
         "speed": 8000,

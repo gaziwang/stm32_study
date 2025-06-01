@@ -25,10 +25,6 @@ void Delay_Init(void)
  * @brief SysTick中断服务函数（自动递增计数器）
  * @note 需在启动文件（如startup_stm32f10x_hd.s）中映射中断向量
  */
-void SysTick_Handler(void)
-{
-    SysTick_Counter++; // 每次1ms中断，计数器加1
-}
 
 /**
  * @brief 毫秒延时函数（轮询SysTick计数器）

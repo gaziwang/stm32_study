@@ -32,3 +32,5 @@
 .\objects\main.o: .\Drivers\CMSIS\stm32f10x_it.h
 .\objects\main.o: .\Drivers\BSP\LED.h
 .\objects\main.o: .\Drivers\BSP\Beep.h
+.\objects\main.o: .\Drivers\BSP\key.h
+.\objects\main.o: .\Drivers\BSP\lightsensor.h

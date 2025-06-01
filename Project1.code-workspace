@@ -10,7 +10,11 @@
             "misc.h": "c",
             "delay.h": "c",
             "stm32f10x_it.h": "c",
-            "stm32f10x_exti.h": "c"
+            "stm32f10x_exti.h": "c",
+            "stm32f10x_rcc.h": "c",
+            "key.h": "c",
+            "lightsensor.h": "c",
+            "beep.h": "c"
         }
     },
     "extensions": {}

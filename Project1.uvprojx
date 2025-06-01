@@ -705,6 +705,26 @@
               <FileType>5</FileType>
               <FilePath>.\Drivers\BSP\LED.h</FilePath>
             </File>
+            <File>
+              <FileName>key.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Drivers\BSP\key.c</FilePath>
+            </File>
+            <File>
+              <FileName>key.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Drivers\BSP\key.h</FilePath>
+            </File>
+            <File>
+              <FileName>lightsensor.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Drivers\BSP\lightsensor.c</FilePath>
+            </File>
+            <File>
+              <FileName>lightsensor.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Drivers\BSP\lightsensor.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

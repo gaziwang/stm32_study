@@ -25,7 +25,7 @@
 
 
 #include "stm32f10x_it.h"
-volatile uint8_t key_pressed; 
+extern SysTick_Counter; // Declare the SysTick_Counter variable from Delay.c
 
 // Add the prototype for LED0_Toggle if not already declared elsewhere
 void LED0_Toggle(void);
@@ -138,6 +138,12 @@ void PendSV_Handler(void)
  * @param  None
  * @retval None
  */
+
+
+void SysTick_Handler(void)
+{
+    SysTick_Counter++; // 每次1ms中断，计数器加1
+}
 
 /******************************************************************************/
 /*            STM32F10x Peripherals Interrupt Handlers                        */

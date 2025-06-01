@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Objects\Project1.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Objects\Project1.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Sat May 31 22:56:18 2025
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Sun Jun 01 13:22:49 2025
 <BR><P>
 <H3>Maximum Stack Usage =         40 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -344,19 +344,12 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[46]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[54]"></a>Delay_ms</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, delay.o(i.Delay_ms))
-<BR><BR>[Called By]<UL><LI><a href="#[46]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
-<LI><a href="#[13]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EXTI3_IRQHandler
-</UL>
-
-<P><STRONG><a name="[13]"></a>EXTI3_IRQHandler</STRONG> (Thumb, 44 bytes, Stack size 8 bytes, stm32f10x_it.o(i.EXTI3_IRQHandler))
+<P><STRONG><a name="[13]"></a>EXTI3_IRQHandler</STRONG> (Thumb, 22 bytes, Stack size 8 bytes, stm32f10x_it.o(i.EXTI3_IRQHandler))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = EXTI3_IRQHandler
 </UL>
-<BR>[Calls]<UL><LI><a href="#[55]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_ReadInputDataBit
-<LI><a href="#[53]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EXTI_GetITStatus
-<LI><a href="#[57]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EXTI_ClearITPendingBit
-<LI><a href="#[56]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LED0_Toggle
-<LI><a href="#[54]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Delay_ms
+<BR>[Calls]<UL><LI><a href="#[53]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EXTI_GetITStatus
+<LI><a href="#[55]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EXTI_ClearITPendingBit
+<LI><a href="#[54]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LED0_Toggle
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32f103xe.o(RESET)
 </UL>
@@ -367,7 +360,7 @@ Global Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32f103xe.o(RESET)
 </UL>
-<P><STRONG><a name="[57]"></a>EXTI_ClearITPendingBit</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, stm32f10x_exti.o(i.EXTI_ClearITPendingBit))
+<P><STRONG><a name="[55]"></a>EXTI_ClearITPendingBit</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, stm32f10x_exti.o(i.EXTI_ClearITPendingBit))
 <BR><BR>[Called By]<UL><LI><a href="#[13]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EXTI3_IRQHandler
 </UL>
 
@@ -376,18 +369,18 @@ Global Symbols
 <LI><a href="#[13]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EXTI3_IRQHandler
 </UL>
 
-<P><STRONG><a name="[5b]"></a>EXTI_Init</STRONG> (Thumb, 142 bytes, Stack size 0 bytes, stm32f10x_exti.o(i.EXTI_Init))
-<BR><BR>[Called By]<UL><LI><a href="#[58]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EXTI_key_config
+<P><STRONG><a name="[59]"></a>EXTI_Init</STRONG> (Thumb, 142 bytes, Stack size 0 bytes, stm32f10x_exti.o(i.EXTI_Init))
+<BR><BR>[Called By]<UL><LI><a href="#[56]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EXTI_key_config
 </UL>
 
-<P><STRONG><a name="[58]"></a>EXTI_key_config</STRONG> (Thumb, 78 bytes, Stack size 16 bytes, main.o(i.EXTI_key_config))
+<P><STRONG><a name="[56]"></a>EXTI_key_config</STRONG> (Thumb, 78 bytes, Stack size 16 bytes, main.o(i.EXTI_key_config))
 <BR><BR>[Stack]<UL><LI>Max Depth = 40<LI>Call Chain = EXTI_key_config &rArr; GPIO_Init
 </UL>
 <BR>[Calls]<UL><LI><a href="#[4e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_Init
-<LI><a href="#[59]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_EXTILineConfig
-<LI><a href="#[5b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EXTI_Init
+<LI><a href="#[57]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_EXTILineConfig
+<LI><a href="#[59]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EXTI_Init
 <LI><a href="#[4d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_APB2PeriphClockCmd
-<LI><a href="#[5a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NVIC_config
+<LI><a href="#[58]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NVIC_config
 </UL>
 <BR>[Called By]<UL><LI><a href="#[46]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
@@ -400,62 +393,62 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[65]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_config
 </UL>
 
-<P><STRONG><a name="[59]"></a>GPIO_EXTILineConfig</STRONG> (Thumb, 60 bytes, Stack size 12 bytes, stm32f10x_gpio.o(i.GPIO_EXTILineConfig))
+<P><STRONG><a name="[57]"></a>GPIO_EXTILineConfig</STRONG> (Thumb, 60 bytes, Stack size 12 bytes, stm32f10x_gpio.o(i.GPIO_EXTILineConfig))
 <BR><BR>[Stack]<UL><LI>Max Depth = 12<LI>Call Chain = GPIO_EXTILineConfig
 </UL>
-<BR>[Called By]<UL><LI><a href="#[58]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EXTI_key_config
+<BR>[Called By]<UL><LI><a href="#[56]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EXTI_key_config
 </UL>
 
 <P><STRONG><a name="[4e]"></a>GPIO_Init</STRONG> (Thumb, 278 bytes, Stack size 24 bytes, stm32f10x_gpio.o(i.GPIO_Init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = GPIO_Init
 </UL>
-<BR>[Called By]<UL><LI><a href="#[58]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EXTI_key_config
-<LI><a href="#[60]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LED_Init
+<BR>[Called By]<UL><LI><a href="#[56]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EXTI_key_config
+<LI><a href="#[60]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LIGHTSENSOR_Init
+<LI><a href="#[5c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;KEY_Init
+<LI><a href="#[5f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LED_Init
 <LI><a href="#[4c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BEEP_Init
 </UL>
 
-<P><STRONG><a name="[55]"></a>GPIO_ReadInputDataBit</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, stm32f10x_gpio.o(i.GPIO_ReadInputDataBit))
-<BR><BR>[Called By]<UL><LI><a href="#[13]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EXTI3_IRQHandler
+<P><STRONG><a name="[5b]"></a>GPIO_ReadInputDataBit</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, stm32f10x_gpio.o(i.GPIO_ReadInputDataBit))
+<BR><BR>[Called By]<UL><LI><a href="#[5a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Get_LightIntensity
 </UL>
 
 <P><STRONG><a name="[50]"></a>GPIO_ResetBits</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, stm32f10x_gpio.o(i.GPIO_ResetBits))
-<BR><BR>[Called By]<UL><LI><a href="#[5f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LED1_On
-<LI><a href="#[5d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LED0_On
+<BR><BR>[Called By]<UL><LI><a href="#[5e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LED1_On
 <LI><a href="#[4f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BEEP_Off
 </UL>
 
 <P><STRONG><a name="[52]"></a>GPIO_SetBits</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, stm32f10x_gpio.o(i.GPIO_SetBits))
-<BR><BR>[Called By]<UL><LI><a href="#[60]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LED_Init
-<LI><a href="#[5e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LED1_Off
-<LI><a href="#[5c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LED0_Off
+<BR><BR>[Called By]<UL><LI><a href="#[5f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LED_Init
+<LI><a href="#[5d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LED1_Off
 <LI><a href="#[51]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BEEP_On
+</UL>
+
+<P><STRONG><a name="[5a]"></a>Get_LightIntensity</STRONG> (Thumb, 26 bytes, Stack size 8 bytes, lightsensor.o(i.Get_LightIntensity))
+<BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = Get_LightIntensity
+</UL>
+<BR>[Calls]<UL><LI><a href="#[5b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_ReadInputDataBit
+</UL>
+<BR>[Called By]<UL><LI><a href="#[46]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
 <P><STRONG><a name="[2]"></a>HardFault_Handler</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, stm32f10x_it.o(i.HardFault_Handler))
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32f103xe.o(RESET)
 </UL>
-<P><STRONG><a name="[5c]"></a>LED0_Off</STRONG> (Thumb, 12 bytes, Stack size 8 bytes, led.o(i.LED0_Off))
-<BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = LED0_Off
+<P><STRONG><a name="[5c]"></a>KEY_Init</STRONG> (Thumb, 60 bytes, Stack size 8 bytes, key.o(i.KEY_Init))
+<BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = KEY_Init &rArr; GPIO_Init
 </UL>
-<BR>[Calls]<UL><LI><a href="#[52]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_SetBits
-</UL>
-<BR>[Called By]<UL><LI><a href="#[46]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
-</UL>
-
-<P><STRONG><a name="[5d]"></a>LED0_On</STRONG> (Thumb, 12 bytes, Stack size 8 bytes, led.o(i.LED0_On))
-<BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = LED0_On
-</UL>
-<BR>[Calls]<UL><LI><a href="#[50]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_ResetBits
+<BR>[Calls]<UL><LI><a href="#[4e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_Init
+<LI><a href="#[4d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_APB2PeriphClockCmd
 </UL>
 <BR>[Called By]<UL><LI><a href="#[46]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[56]"></a>LED0_Toggle</STRONG> (Thumb, 14 bytes, Stack size 0 bytes, led.o(i.LED0_Toggle))
-<BR><BR>[Called By]<UL><LI><a href="#[46]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
-<LI><a href="#[13]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EXTI3_IRQHandler
+<P><STRONG><a name="[54]"></a>LED0_Toggle</STRONG> (Thumb, 14 bytes, Stack size 0 bytes, led.o(i.LED0_Toggle))
+<BR><BR>[Called By]<UL><LI><a href="#[13]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EXTI3_IRQHandler
 </UL>
 
-<P><STRONG><a name="[5e]"></a>LED1_Off</STRONG> (Thumb, 12 bytes, Stack size 8 bytes, led.o(i.LED1_Off))
+<P><STRONG><a name="[5d]"></a>LED1_Off</STRONG> (Thumb, 12 bytes, Stack size 8 bytes, led.o(i.LED1_Off))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = LED1_Off
 </UL>
 <BR>[Calls]<UL><LI><a href="#[52]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_SetBits
@@ -463,7 +456,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[46]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[5f]"></a>LED1_On</STRONG> (Thumb, 12 bytes, Stack size 8 bytes, led.o(i.LED1_On))
+<P><STRONG><a name="[5e]"></a>LED1_On</STRONG> (Thumb, 12 bytes, Stack size 8 bytes, led.o(i.LED1_On))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = LED1_On
 </UL>
 <BR>[Calls]<UL><LI><a href="#[50]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_ResetBits
@@ -471,11 +464,20 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[46]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[60]"></a>LED_Init</STRONG> (Thumb, 76 bytes, Stack size 8 bytes, led.o(i.LED_Init))
+<P><STRONG><a name="[5f]"></a>LED_Init</STRONG> (Thumb, 76 bytes, Stack size 8 bytes, led.o(i.LED_Init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = LED_Init &rArr; GPIO_Init
 </UL>
 <BR>[Calls]<UL><LI><a href="#[52]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_SetBits
 <LI><a href="#[4e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_Init
+<LI><a href="#[4d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_APB2PeriphClockCmd
+</UL>
+<BR>[Called By]<UL><LI><a href="#[46]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
+</UL>
+
+<P><STRONG><a name="[60]"></a>LIGHTSENSOR_Init</STRONG> (Thumb, 40 bytes, Stack size 8 bytes, lightsensor.o(i.LIGHTSENSOR_Init))
+<BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = LIGHTSENSOR_Init &rArr; GPIO_Init
+</UL>
+<BR>[Calls]<UL><LI><a href="#[4e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_Init
 <LI><a href="#[4d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_APB2PeriphClockCmd
 </UL>
 <BR>[Called By]<UL><LI><a href="#[46]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
@@ -490,20 +492,20 @@ Global Symbols
 <P><STRONG><a name="[62]"></a>NVIC_Init</STRONG> (Thumb, 100 bytes, Stack size 16 bytes, misc.o(i.NVIC_Init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = NVIC_Init
 </UL>
-<BR>[Called By]<UL><LI><a href="#[5a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NVIC_config
+<BR>[Called By]<UL><LI><a href="#[58]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NVIC_config
 </UL>
 
 <P><STRONG><a name="[61]"></a>NVIC_PriorityGroupConfig</STRONG> (Thumb, 10 bytes, Stack size 0 bytes, misc.o(i.NVIC_PriorityGroupConfig))
-<BR><BR>[Called By]<UL><LI><a href="#[5a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NVIC_config
+<BR><BR>[Called By]<UL><LI><a href="#[58]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NVIC_config
 </UL>
 
-<P><STRONG><a name="[5a]"></a>NVIC_config</STRONG> (Thumb, 38 bytes, Stack size 8 bytes, main.o(i.NVIC_config))
+<P><STRONG><a name="[58]"></a>NVIC_config</STRONG> (Thumb, 38 bytes, Stack size 8 bytes, main.o(i.NVIC_config))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = NVIC_config &rArr; NVIC_Init
 </UL>
 <BR>[Calls]<UL><LI><a href="#[61]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NVIC_PriorityGroupConfig
 <LI><a href="#[62]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NVIC_Init
 </UL>
-<BR>[Called By]<UL><LI><a href="#[58]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EXTI_key_config
+<BR>[Called By]<UL><LI><a href="#[56]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EXTI_key_config
 </UL>
 
 <P><STRONG><a name="[8]"></a>PendSV_Handler</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, stm32f10x_it.o(i.PendSV_Handler))
@@ -511,8 +513,10 @@ Global Symbols
 </UL>
 <P><STRONG><a name="[4d]"></a>RCC_APB2PeriphClockCmd</STRONG> (Thumb, 26 bytes, Stack size 0 bytes, stm32f10x_rcc.o(i.RCC_APB2PeriphClockCmd))
 <BR><BR>[Called By]<UL><LI><a href="#[65]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_config
-<LI><a href="#[58]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EXTI_key_config
-<LI><a href="#[60]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LED_Init
+<LI><a href="#[56]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EXTI_key_config
+<LI><a href="#[60]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LIGHTSENSOR_Init
+<LI><a href="#[5c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;KEY_Init
+<LI><a href="#[5f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LED_Init
 <LI><a href="#[4c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BEEP_Init
 </UL>
 
@@ -617,22 +621,21 @@ Global Symbols
 
 <P><STRONG><a name="[7e]"></a>__scatterload_zeroinit</STRONG> (Thumb, 14 bytes, Stack size unknown bytes, handlers.o(i.__scatterload_zeroinit), UNUSED)
 
-<P><STRONG><a name="[46]"></a>main</STRONG> (Thumb, 92 bytes, Stack size 0 bytes, main.o(i.main))
+<P><STRONG><a name="[46]"></a>main</STRONG> (Thumb, 60 bytes, Stack size 0 bytes, main.o(i.main))
 <BR><BR>[Stack]<UL><LI>Max Depth = 40<LI>Call Chain = main &rArr; RCC_config &rArr; RCC_WaitForHSEStartUp &rArr; RCC_GetFlagStatus
 </UL>
 <BR>[Calls]<UL><LI><a href="#[65]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_config
-<LI><a href="#[58]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EXTI_key_config
-<LI><a href="#[60]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LED_Init
-<LI><a href="#[5f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LED1_On
-<LI><a href="#[5e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LED1_Off
-<LI><a href="#[5d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LED0_On
-<LI><a href="#[5c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LED0_Off
+<LI><a href="#[56]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EXTI_key_config
+<LI><a href="#[60]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LIGHTSENSOR_Init
+<LI><a href="#[5a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Get_LightIntensity
+<LI><a href="#[5c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;KEY_Init
+<LI><a href="#[5f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LED_Init
+<LI><a href="#[5e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LED1_On
+<LI><a href="#[5d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LED1_Off
 <LI><a href="#[51]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BEEP_On
 <LI><a href="#[4f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BEEP_Off
 <LI><a href="#[4c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BEEP_Init
 <LI><a href="#[74]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Delay_Init
-<LI><a href="#[56]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LED0_Toggle
-<LI><a href="#[54]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Delay_ms
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> entry9a.o(.ARM.Collect$$$$0000000B)
 </UL><P>
