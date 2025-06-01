@@ -222,6 +222,18 @@
           },
           {
             "path": "Drivers/BSP/lightsensor.h"
+          },
+          {
+            "path": "Drivers/BSP/usart.c"
+          },
+          {
+            "path": "Drivers/BSP/usart.h"
+          },
+          {
+            "path": "Drivers/BSP/HSE_Set.c"
+          },
+          {
+            "path": "Drivers/BSP/HSE_Set.h"
           }
         ],
         "folders": []

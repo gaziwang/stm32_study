@@ -14,7 +14,8 @@
             "stm32f10x_rcc.h": "c",
             "key.h": "c",
             "lightsensor.h": "c",
-            "beep.h": "c"
+            "beep.h": "c",
+            "usart.h": "c"
         }
     },
     "extensions": {}
