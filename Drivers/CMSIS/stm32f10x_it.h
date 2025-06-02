@@ -27,7 +27,7 @@
 #include "stm32f10x.h"
 #include "LED.h"
 #include "Delay.h"
-void LED0_Toggle(void);
+#include "Beep.h"
 
 
 /* Exported types ------------------------------------------------------------*/

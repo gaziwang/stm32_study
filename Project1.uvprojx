@@ -725,6 +725,26 @@
               <FileType>5</FileType>
               <FilePath>.\Drivers\BSP\lightsensor.h</FilePath>
             </File>
+            <File>
+              <FileName>HSE_Set.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Drivers\BSP\HSE_Set.c</FilePath>
+            </File>
+            <File>
+              <FileName>HSE_Set.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Drivers\BSP\HSE_Set.h</FilePath>
+            </File>
+            <File>
+              <FileName>usart.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Drivers\BSP\usart.c</FilePath>
+            </File>
+            <File>
+              <FileName>usart.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Drivers\BSP\usart.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

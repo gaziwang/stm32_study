@@ -82,7 +82,7 @@ void USART3_Init(void)
  * @param USARTx: 串口外设（如 USART1/USART2）
  * @param data: 要发送的单字节数据（uint16_t 兼容 ASCII/汉字字节）
  */
-void USART_SendByte(USART_TypeDef* USARTx, uint16_t data)
+void USART_SendByte(USART_TypeDef* USARTx, uint8_t data)
 {
     // 等待“发送缓冲区空”标志（TXE）置位
     while (USART_GetFlagStatus(USARTx, USART_FLAG_TXE) == RESET);  
@@ -127,3 +127,13 @@ void USART_SendFloat(USART_TypeDef* USARTx, float num)
     sprintf(buf, "%.5f", num); // 浮点数转字符串（如 3.14 → "3.14"）
     USART_SendString(USARTx, buf);
 }
+
+int fputc(int ch, FILE *f)
+{
+    // 等待“发送缓冲区空”标志（TXE）置位
+    while (USART_GetFlagStatus(USART3, USART_FLAG_TXE) == RESET);  
+    // 发送当前字符（强转为 uint8_t）
+    USART_SendData(USART3, (uint8_t)ch);
+    return ch; // 必须返回字符，否则 printf 会异常
+}
+

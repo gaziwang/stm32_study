@@ -726,8 +726,8 @@ I (Drivers\CMSIS\misc.h)(0x4D783BB4)
 F (.\Drivers\CMSIS\stm32f10x_wwdg.h)(0x4D783BB4)()
 F (.\Drivers\CMSIS\stm32f10x.h)(0x4D783CB4)()
 F (.\Drivers\CMSIS\stm32f10x_conf.h)(0x683A9226)()
-F (.\Drivers\CMSIS\stm32f10x_it.c)(0x683BE2FC)(--c99 --gnu -c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I .\Drivers\CMSIS\startup -I .\Drivers\CMSIS\system -I .\Drivers\CMSIS -I .\Drivers\BSP -I .\Drivers -I .\user-ID:\Keil_v5\Arm\Packs\Keil\STM32F1xx_DFP\2.3.0\Device\Include-D__UVISION_VERSION="542" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\objects\stm32f10x_it.o --omf_browse .\objects\stm32f10x_it.crf --depend .\objects\stm32f10x_it.d)
-I (Drivers\CMSIS\stm32f10x_it.h)(0x683B187C)
+F (.\Drivers\CMSIS\stm32f10x_it.c)(0x683C7A73)(--c99 --gnu -c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I .\Drivers\CMSIS\startup -I .\Drivers\CMSIS\system -I .\Drivers\CMSIS -I .\Drivers\BSP -I .\Drivers -I .\user-ID:\Keil_v5\Arm\Packs\Keil\STM32F1xx_DFP\2.3.0\Device\Include-D__UVISION_VERSION="542" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\objects\stm32f10x_it.o --omf_browse .\objects\stm32f10x_it.crf --depend .\objects\stm32f10x_it.d)
+I (Drivers\CMSIS\stm32f10x_it.h)(0x683C7A7A)
 I (Drivers\CMSIS\stm32f10x.h)(0x4D783CB4)
 I (.\Drivers\CMSIS\startup\core_cm3.h)(0x4D523B58)
 I (D:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5D9B3488)
@@ -757,10 +757,11 @@ I (Drivers\CMSIS\stm32f10x_usart.h)(0x4D783BB4)
 I (Drivers\CMSIS\stm32f10x_wwdg.h)(0x4D783BB4)
 I (Drivers\CMSIS\misc.h)(0x4D783BB4)
 I (.\Drivers\BSP\LED.h)(0x683AF164)
-I (.\Drivers\CMSIS\system\Delay.h)(0x683B166C)
-F (.\Drivers\CMSIS\stm32f10x_it.h)(0x683B187C)()
-F (.\Drivers\CMSIS\system\Delay.c)(0x683B1D48)(--c99 --gnu -c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I .\Drivers\CMSIS\startup -I .\Drivers\CMSIS\system -I .\Drivers\CMSIS -I .\Drivers\BSP -I .\Drivers -I .\user-ID:\Keil_v5\Arm\Packs\Keil\STM32F1xx_DFP\2.3.0\Device\Include-D__UVISION_VERSION="542" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\objects\delay.o --omf_browse .\objects\delay.crf --depend .\objects\delay.d)
-I (Drivers\CMSIS\system\Delay.h)(0x683B166C)
+I (.\Drivers\CMSIS\system\Delay.h)(0x683BECD0)
+I (.\Drivers\BSP\Beep.h)(0x683AF481)
+F (.\Drivers\CMSIS\stm32f10x_it.h)(0x683C7A7A)()
+F (.\Drivers\CMSIS\system\Delay.c)(0x683C1B04)(--c99 --gnu -c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I .\Drivers\CMSIS\startup -I .\Drivers\CMSIS\system -I .\Drivers\CMSIS -I .\Drivers\BSP -I .\Drivers -I .\user-ID:\Keil_v5\Arm\Packs\Keil\STM32F1xx_DFP\2.3.0\Device\Include-D__UVISION_VERSION="542" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\objects\delay.o --omf_browse .\objects\delay.crf --depend .\objects\delay.d)
+I (Drivers\CMSIS\system\Delay.h)(0x683BECD0)
 I (.\Drivers\CMSIS\stm32f10x.h)(0x4D783CB4)
 I (.\Drivers\CMSIS\startup\core_cm3.h)(0x4D523B58)
 I (D:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5D9B3488)
@@ -789,7 +790,7 @@ I (.\Drivers\CMSIS\stm32f10x_tim.h)(0x4D783BB4)
 I (.\Drivers\CMSIS\stm32f10x_usart.h)(0x4D783BB4)
 I (.\Drivers\CMSIS\stm32f10x_wwdg.h)(0x4D783BB4)
 I (.\Drivers\CMSIS\misc.h)(0x4D783BB4)
-F (.\Drivers\CMSIS\system\Delay.h)(0x683B166C)()
+F (.\Drivers\CMSIS\system\Delay.h)(0x683BECD0)()
 F (.\Drivers\BSP\Beep.c)(0x683AF797)(--c99 --gnu -c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I .\Drivers\CMSIS\startup -I .\Drivers\CMSIS\system -I .\Drivers\CMSIS -I .\Drivers\BSP -I .\Drivers -I .\user-ID:\Keil_v5\Arm\Packs\Keil\STM32F1xx_DFP\2.3.0\Device\Include-D__UVISION_VERSION="542" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\objects\beep.o --omf_browse .\objects\beep.crf --depend .\objects\beep.d)
 I (Drivers\BSP\Beep.h)(0x683AF481)
 I (.\Drivers\CMSIS\stm32f10x.h)(0x4D783CB4)
@@ -852,8 +853,8 @@ I (.\Drivers\CMSIS\stm32f10x_usart.h)(0x4D783BB4)
 I (.\Drivers\CMSIS\stm32f10x_wwdg.h)(0x4D783BB4)
 I (.\Drivers\CMSIS\misc.h)(0x4D783BB4)
 F (.\Drivers\BSP\LED.h)(0x683AF164)()
-F (.\Drivers\BSP\key.c)(0x683B301A)(--c99 --gnu -c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I .\Drivers\CMSIS\startup -I .\Drivers\CMSIS\system -I .\Drivers\CMSIS -I .\Drivers\BSP -I .\Drivers -I .\user-ID:\Keil_v5\Arm\Packs\Keil\STM32F1xx_DFP\2.3.0\Device\Include-D__UVISION_VERSION="542" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\objects\key.o --omf_browse .\objects\key.crf --depend .\objects\key.d)
-I (Drivers\BSP\key.h)(0x683B30E1)
+F (.\Drivers\BSP\key.c)(0x683C7A10)(--c99 --gnu -c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I .\Drivers\CMSIS\startup -I .\Drivers\CMSIS\system -I .\Drivers\CMSIS -I .\Drivers\BSP -I .\Drivers -I .\user-ID:\Keil_v5\Arm\Packs\Keil\STM32F1xx_DFP\2.3.0\Device\Include-D__UVISION_VERSION="542" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\objects\key.o --omf_browse .\objects\key.crf --depend .\objects\key.d)
+I (Drivers\BSP\key.h)(0x683C650D)
 I (.\Drivers\CMSIS\stm32f10x.h)(0x4D783CB4)
 I (.\Drivers\CMSIS\startup\core_cm3.h)(0x4D523B58)
 I (D:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5D9B3488)
@@ -882,8 +883,8 @@ I (.\Drivers\CMSIS\stm32f10x_tim.h)(0x4D783BB4)
 I (.\Drivers\CMSIS\stm32f10x_usart.h)(0x4D783BB4)
 I (.\Drivers\CMSIS\stm32f10x_wwdg.h)(0x4D783BB4)
 I (.\Drivers\CMSIS\misc.h)(0x4D783BB4)
-I (.\Drivers\CMSIS\system\Delay.h)(0x683B166C)
-F (.\Drivers\BSP\key.h)(0x683B30E1)()
+I (.\Drivers\CMSIS\system\Delay.h)(0x683BECD0)
+F (.\Drivers\BSP\key.h)(0x683C650D)()
 F (.\Drivers\BSP\lightsensor.c)(0x683B3649)(--c99 --gnu -c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I .\Drivers\CMSIS\startup -I .\Drivers\CMSIS\system -I .\Drivers\CMSIS -I .\Drivers\BSP -I .\Drivers -I .\user-ID:\Keil_v5\Arm\Packs\Keil\STM32F1xx_DFP\2.3.0\Device\Include-D__UVISION_VERSION="542" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\objects\lightsensor.o --omf_browse .\objects\lightsensor.crf --depend .\objects\lightsensor.d)
 I (Drivers\BSP\lightsensor.h)(0x683B32C4)
 I (.\Drivers\CMSIS\stm32f10x.h)(0x4D783CB4)
@@ -914,9 +915,10 @@ I (.\Drivers\CMSIS\stm32f10x_tim.h)(0x4D783BB4)
 I (.\Drivers\CMSIS\stm32f10x_usart.h)(0x4D783BB4)
 I (.\Drivers\CMSIS\stm32f10x_wwdg.h)(0x4D783BB4)
 I (.\Drivers\CMSIS\misc.h)(0x4D783BB4)
-I (.\Drivers\CMSIS\system\Delay.h)(0x683B166C)
+I (.\Drivers\CMSIS\system\Delay.h)(0x683BECD0)
 F (.\Drivers\BSP\lightsensor.h)(0x683B32C4)()
-F (.\user\main.c)(0x683B3A4B)(--c99 --gnu -c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I .\Drivers\CMSIS\startup -I .\Drivers\CMSIS\system -I .\Drivers\CMSIS -I .\Drivers\BSP -I .\Drivers -I .\user-ID:\Keil_v5\Arm\Packs\Keil\STM32F1xx_DFP\2.3.0\Device\Include-D__UVISION_VERSION="542" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\objects\main.o --omf_browse .\objects\main.crf --depend .\objects\main.d)
+F (.\Drivers\BSP\HSE_Set.c)(0x683C62ED)(--c99 --gnu -c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I .\Drivers\CMSIS\startup -I .\Drivers\CMSIS\system -I .\Drivers\CMSIS -I .\Drivers\BSP -I .\Drivers -I .\user-ID:\Keil_v5\Arm\Packs\Keil\STM32F1xx_DFP\2.3.0\Device\Include-D__UVISION_VERSION="542" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\objects\hse_set.o --omf_browse .\objects\hse_set.crf --depend .\objects\hse_set.d)
+I (Drivers\BSP\HSE_Set.h)(0x683C62E9)
 I (.\Drivers\CMSIS\stm32f10x.h)(0x4D783CB4)
 I (.\Drivers\CMSIS\startup\core_cm3.h)(0x4D523B58)
 I (D:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5D9B3488)
@@ -945,9 +947,74 @@ I (.\Drivers\CMSIS\stm32f10x_tim.h)(0x4D783BB4)
 I (.\Drivers\CMSIS\stm32f10x_usart.h)(0x4D783BB4)
 I (.\Drivers\CMSIS\stm32f10x_wwdg.h)(0x4D783BB4)
 I (.\Drivers\CMSIS\misc.h)(0x4D783BB4)
-I (.\Drivers\CMSIS\system\Delay.h)(0x683B166C)
-I (.\Drivers\CMSIS\stm32f10x_it.h)(0x683B187C)
+F (.\Drivers\BSP\HSE_Set.h)(0x683C62E9)()
+F (.\Drivers\BSP\usart.c)(0x683C6618)(--c99 --gnu -c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I .\Drivers\CMSIS\startup -I .\Drivers\CMSIS\system -I .\Drivers\CMSIS -I .\Drivers\BSP -I .\Drivers -I .\user-ID:\Keil_v5\Arm\Packs\Keil\STM32F1xx_DFP\2.3.0\Device\Include-D__UVISION_VERSION="542" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\objects\usart.o --omf_browse .\objects\usart.crf --depend .\objects\usart.d)
+I (Drivers\BSP\usart.h)(0x683C5DCC)
+I (.\Drivers\CMSIS\stm32f10x.h)(0x4D783CB4)
+I (.\Drivers\CMSIS\startup\core_cm3.h)(0x4D523B58)
+I (D:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5D9B3488)
+I (.\Drivers\CMSIS\system_stm32f10x.h)(0x4D783CAA)
+I (.\Drivers\CMSIS\stm32f10x_conf.h)(0x683A9226)
+I (.\Drivers\CMSIS\stm32f10x_adc.h)(0x4D783BB4)
+I (.\Drivers\CMSIS\stm32f10x_bkp.h)(0x4D783BB4)
+I (.\Drivers\CMSIS\stm32f10x_can.h)(0x4D783BB4)
+I (.\Drivers\CMSIS\stm32f10x_cec.h)(0x4D783BB4)
+I (.\Drivers\CMSIS\stm32f10x_crc.h)(0x4D783BB4)
+I (.\Drivers\CMSIS\stm32f10x_dac.h)(0x4D783BB4)
+I (.\Drivers\CMSIS\stm32f10x_dbgmcu.h)(0x4D783BB4)
+I (.\Drivers\CMSIS\stm32f10x_dma.h)(0x4D783BB4)
+I (.\Drivers\CMSIS\stm32f10x_exti.h)(0x4D783BB4)
+I (.\Drivers\CMSIS\stm32f10x_flash.h)(0x4D783BB4)
+I (.\Drivers\CMSIS\stm32f10x_fsmc.h)(0x4D783BB4)
+I (.\Drivers\CMSIS\stm32f10x_gpio.h)(0x4D783BB4)
+I (.\Drivers\CMSIS\stm32f10x_i2c.h)(0x4D783BB4)
+I (.\Drivers\CMSIS\stm32f10x_iwdg.h)(0x4D783BB4)
+I (.\Drivers\CMSIS\stm32f10x_pwr.h)(0x4D783BB4)
+I (.\Drivers\CMSIS\stm32f10x_rcc.h)(0x4D783BB4)
+I (.\Drivers\CMSIS\stm32f10x_rtc.h)(0x4D783BB4)
+I (.\Drivers\CMSIS\stm32f10x_sdio.h)(0x4D783BB4)
+I (.\Drivers\CMSIS\stm32f10x_spi.h)(0x4D783BB4)
+I (.\Drivers\CMSIS\stm32f10x_tim.h)(0x4D783BB4)
+I (.\Drivers\CMSIS\stm32f10x_usart.h)(0x4D783BB4)
+I (.\Drivers\CMSIS\stm32f10x_wwdg.h)(0x4D783BB4)
+I (.\Drivers\CMSIS\misc.h)(0x4D783BB4)
+I (D:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5D9B348A)
+F (.\Drivers\BSP\usart.h)(0x683C5DCC)()
+F (.\user\main.c)(0x683C7AC1)(--c99 --gnu -c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I .\Drivers\CMSIS\startup -I .\Drivers\CMSIS\system -I .\Drivers\CMSIS -I .\Drivers\BSP -I .\Drivers -I .\user-ID:\Keil_v5\Arm\Packs\Keil\STM32F1xx_DFP\2.3.0\Device\Include-D__UVISION_VERSION="542" -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER -DSTM32F10X_HD-o .\objects\main.o --omf_browse .\objects\main.crf --depend .\objects\main.d)
+I (.\Drivers\CMSIS\stm32f10x.h)(0x4D783CB4)
+I (.\Drivers\CMSIS\startup\core_cm3.h)(0x4D523B58)
+I (D:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x5D9B3488)
+I (.\Drivers\CMSIS\system_stm32f10x.h)(0x4D783CAA)
+I (.\Drivers\CMSIS\stm32f10x_conf.h)(0x683A9226)
+I (.\Drivers\CMSIS\stm32f10x_adc.h)(0x4D783BB4)
+I (.\Drivers\CMSIS\stm32f10x_bkp.h)(0x4D783BB4)
+I (.\Drivers\CMSIS\stm32f10x_can.h)(0x4D783BB4)
+I (.\Drivers\CMSIS\stm32f10x_cec.h)(0x4D783BB4)
+I (.\Drivers\CMSIS\stm32f10x_crc.h)(0x4D783BB4)
+I (.\Drivers\CMSIS\stm32f10x_dac.h)(0x4D783BB4)
+I (.\Drivers\CMSIS\stm32f10x_dbgmcu.h)(0x4D783BB4)
+I (.\Drivers\CMSIS\stm32f10x_dma.h)(0x4D783BB4)
+I (.\Drivers\CMSIS\stm32f10x_exti.h)(0x4D783BB4)
+I (.\Drivers\CMSIS\stm32f10x_flash.h)(0x4D783BB4)
+I (.\Drivers\CMSIS\stm32f10x_fsmc.h)(0x4D783BB4)
+I (.\Drivers\CMSIS\stm32f10x_gpio.h)(0x4D783BB4)
+I (.\Drivers\CMSIS\stm32f10x_i2c.h)(0x4D783BB4)
+I (.\Drivers\CMSIS\stm32f10x_iwdg.h)(0x4D783BB4)
+I (.\Drivers\CMSIS\stm32f10x_pwr.h)(0x4D783BB4)
+I (.\Drivers\CMSIS\stm32f10x_rcc.h)(0x4D783BB4)
+I (.\Drivers\CMSIS\stm32f10x_rtc.h)(0x4D783BB4)
+I (.\Drivers\CMSIS\stm32f10x_sdio.h)(0x4D783BB4)
+I (.\Drivers\CMSIS\stm32f10x_spi.h)(0x4D783BB4)
+I (.\Drivers\CMSIS\stm32f10x_tim.h)(0x4D783BB4)
+I (.\Drivers\CMSIS\stm32f10x_usart.h)(0x4D783BB4)
+I (.\Drivers\CMSIS\stm32f10x_wwdg.h)(0x4D783BB4)
+I (.\Drivers\CMSIS\misc.h)(0x4D783BB4)
+I (.\Drivers\CMSIS\system\Delay.h)(0x683BECD0)
+I (.\Drivers\CMSIS\stm32f10x_it.h)(0x683C7A7A)
 I (.\Drivers\BSP\LED.h)(0x683AF164)
 I (.\Drivers\BSP\Beep.h)(0x683AF481)
-I (.\Drivers\BSP\key.h)(0x683B30E1)
+I (.\Drivers\BSP\key.h)(0x683C650D)
 I (.\Drivers\BSP\lightsensor.h)(0x683B32C4)
+I (.\Drivers\BSP\usart.h)(0x683C5DCC)
+I (D:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x5D9B348A)
+I (.\Drivers\BSP\HSE_Set.h)(0x683C62E9)

@@ -23,6 +23,69 @@
         "folders": []
       },
       {
+        "name": "system",
+        "files": [
+          {
+            "path": "Drivers/CMSIS/system/Delay.c"
+          },
+          {
+            "path": "Drivers/CMSIS/system/Delay.h"
+          }
+        ],
+        "folders": []
+      },
+      {
+        "name": "bsp",
+        "files": [
+          {
+            "path": "Drivers/BSP/LED.c"
+          },
+          {
+            "path": "Drivers/BSP/LED.h"
+          },
+          {
+            "path": "Drivers/BSP/Beep.c"
+          },
+          {
+            "path": "Drivers/BSP/Beep.h"
+          },
+          {
+            "path": "Drivers/BSP/key.c"
+          },
+          {
+            "path": "Drivers/BSP/key.h"
+          },
+          {
+            "path": "Drivers/BSP/lightsensor.c"
+          },
+          {
+            "path": "Drivers/BSP/lightsensor.h"
+          },
+          {
+            "path": "Drivers/BSP/usart.c"
+          },
+          {
+            "path": "Drivers/BSP/usart.h"
+          },
+          {
+            "path": "Drivers/BSP/HSE_Set.c"
+          },
+          {
+            "path": "Drivers/BSP/HSE_Set.h"
+          }
+        ],
+        "folders": []
+      },
+      {
+        "name": "user",
+        "files": [
+          {
+            "path": "user/main.c"
+          }
+        ],
+        "folders": []
+      },
+      {
         "name": "Drivers",
         "files": [
           {
@@ -183,75 +246,12 @@
           }
         ],
         "folders": []
-      },
-      {
-        "name": "system",
-        "files": [
-          {
-            "path": "Drivers/CMSIS/system/Delay.c"
-          },
-          {
-            "path": "Drivers/CMSIS/system/Delay.h"
-          }
-        ],
-        "folders": []
-      },
-      {
-        "name": "bsp",
-        "files": [
-          {
-            "path": "Drivers/BSP/LED.c"
-          },
-          {
-            "path": "Drivers/BSP/LED.h"
-          },
-          {
-            "path": "Drivers/BSP/Beep.c"
-          },
-          {
-            "path": "Drivers/BSP/Beep.h"
-          },
-          {
-            "path": "Drivers/BSP/key.c"
-          },
-          {
-            "path": "Drivers/BSP/key.h"
-          },
-          {
-            "path": "Drivers/BSP/lightsensor.c"
-          },
-          {
-            "path": "Drivers/BSP/lightsensor.h"
-          },
-          {
-            "path": "Drivers/BSP/usart.c"
-          },
-          {
-            "path": "Drivers/BSP/usart.h"
-          },
-          {
-            "path": "Drivers/BSP/HSE_Set.c"
-          },
-          {
-            "path": "Drivers/BSP/HSE_Set.h"
-          }
-        ],
-        "folders": []
-      },
-      {
-        "name": "user",
-        "files": [
-          {
-            "path": "user/main.c"
-          }
-        ],
-        "folders": []
       }
     ]
   },
   "outDir": "build",
-  "deviceName": null,
-  "packDir": null,
+  "deviceName": "STM32F103ZE",
+  "packDir": ".pack/Keil/STM32F1xx_DFP.2.3.0",
   "miscInfo": {
     "uid": "11450a93fcb35a99c9fdc68175902e9a"
   },

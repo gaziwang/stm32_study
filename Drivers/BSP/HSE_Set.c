@@ -1,5 +1,26 @@
 #include "HSE_Set.h"
 
+
+/*
+            复位RCC寄存器至默认状态
+            开启外部高速晶振（HSE）
+            等待HSE启动就绪
+            若HSE就绪成功：
+            开启Flash预取缓冲区
+            设置Flash延迟周期（高频优化）
+            配置PLL参数（HSE作为源，倍频系数）
+            使能PLL并等待锁定
+            设置总线分频系数（AHB/APB1/APB2）
+            切换系统时钟源至PLL输出
+            更新系统核心时钟变量
+            关闭内部高速晶振（HSI）
+            若HSE启动失败：
+            切换系统时钟源至HSI
+            设置默认总线分频系数
+            更新系统核心时钟变量
+            进入错误处理循环
+            使能外设时钟（此处开启GPIOE时钟）
+*/
 void RCC_config(uint32_t RCC_PLLMul_x)
 {
     RCC_DeInit();

@@ -23,12 +23,8 @@
 
 /* Includes ------------------------------------------------------------------*/
 
-
 #include "stm32f10x_it.h"
-extern SysTick_Counter; // Declare the SysTick_Counter variable from Delay.c
-
-// Add the prototype for LED0_Toggle if not already declared elsewhere
-void LED0_Toggle(void);
+extern uint32_t SysTick_Counter; // Declare the SysTick_Counter variable from Delay.c
 
 /** @addtogroup STM32F10x_StdPeriph_Examples
  * @{
@@ -139,7 +135,6 @@ void PendSV_Handler(void)
  * @retval None
  */
 
-
 void SysTick_Handler(void)
 {
     SysTick_Counter++; // 每次1ms中断，计数器加1
@@ -158,7 +153,8 @@ void EXTI3_IRQHandler(void)
 {
     if (EXTI_GetITStatus(EXTI_Line3) != RESET) // Check if the interrupt is triggered
     {
-        LED0_Toggle(); // Turn on LED0
+        Delay_ms(10); // Debounce delay
+        BEEP_On();
         EXTI_ClearITPendingBit(EXTI_Line3); // Clear the interrupt pending bit
     }
 }
