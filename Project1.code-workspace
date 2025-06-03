@@ -16,7 +16,8 @@
             "lightsensor.h": "c",
             "beep.h": "c",
             "usart.h": "c",
-            "hse_set.h": "c"
+            "hse_set.h": "c",
+            "stdio.h": "c"
         }
     },
     "extensions": {}

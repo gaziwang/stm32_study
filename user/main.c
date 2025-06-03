@@ -23,8 +23,9 @@ int main(void)
     USART1_Init(); // Initialize USART1 for debugging or communication
     USART3_Init(); // Initialize USART3 if needed
     USART_SendString(USART3, "wangmengzhao666\r\n");
-    USART_SendFloat(USART3, 3.1415926f); // Send initialization message via USART3
+    USART_SendFloat(UART4, 3.1415926f); // Send initialization message via UART4
     printf("wangdawdawdawdawdwadawdawdwadwaa\n"); // Print a message to the console
+    printf("wangdawdawdawda\n"); // Print another message to the console
     while (1) {
         // key_flag = Get_keypress(); // Check if key 0 is pressed
         // if (key_flag == 1) {

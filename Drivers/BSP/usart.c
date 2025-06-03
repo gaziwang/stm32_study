@@ -20,6 +20,16 @@ static void NVIC_USART3Config(void)
     NVIC_InitStructure.NVIC_IRQChannelCmd                = ENABLE;
     NVIC_Init(&NVIC_InitStructure);
 }
+static void NVIC_UART4Config(void)
+{
+    NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);
+    NVIC_InitTypeDef NVIC_InitStructure;
+    NVIC_InitStructure.NVIC_IRQChannel                   = UART4_IRQn;
+    NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 1;
+    NVIC_InitStructure.NVIC_IRQChannelSubPriority        = 0;
+    NVIC_InitStructure.NVIC_IRQChannelCmd                = ENABLE;
+    NVIC_Init(&NVIC_InitStructure);
+}
 void USART1_Init(void)
 {   //打开GPIOA和USART1的时钟
     
@@ -76,7 +86,35 @@ void USART3_Init(void)
     NVIC_USART3Config(); // Configure NVIC for USART3 interrupts
     USART_Cmd(USART3, ENABLE);
 }
+void USART4_init(void)
+{
+    //打开GPIOC和USART4的时钟
+    RCC_APB1PeriphClockCmd(RCC_APB1Periph_UART4, ENABLE);
+    RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOC, ENABLE);
 
+    GPIO_InitTypeDef GPIO_InitStructure;
+    GPIO_InitStructure.GPIO_Pin   = GPIO_Pin_10; // PC10 (TX)
+    GPIO_InitStructure.GPIO_Mode  = GPIO_Mode_AF_PP;          // Alternate function push-pull
+    GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+    GPIO_Init(GPIOC, &GPIO_InitStructure);
+
+    // Configure PC11 (RX) as input floating
+    GPIO_InitStructure.GPIO_Pin   = GPIO_Pin_11; // PC11 (RX)
+    GPIO_InitStructure.GPIO_Mode  = GPIO_Mode_IN_FLOATING; // Input floating
+    GPIO_Init(GPIOC, &GPIO_InitStructure);
+
+    USART_InitTypeDef UART4_InitStructure;
+    UART4_InitStructure.USART_BaudRate            = 115200;
+    UART4_InitStructure.USART_WordLength          = USART_WordLength_8b;
+    UART4_InitStructure.USART_StopBits            = USART_StopBits_1;
+    UART4_InitStructure.USART_Parity              = USART_Parity_No;
+    UART4_InitStructure.USART_Mode                = USART_Mode_Tx | USART_Mode_Rx;
+    UART4_InitStructure.USART_HardwareFlowControl = USART_HardwareFlowControl_None;
+    USART_Init(UART4, &UART4_InitStructure);
+
+    NVIC_UART4Config(); // Configure NVIC for UART4 interrupts
+    USART_Cmd(UART4, ENABLE);
+}
 /**
  * @brief 串口单字节发送（基础函数）
  * @param USARTx: 串口外设（如 USART1/USART2）
