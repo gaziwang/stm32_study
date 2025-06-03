@@ -44,7 +44,7 @@ void USART1_Init(void)
     GPIO_InitStructure.GPIO_Pin   = GPIO_Pin_10; // PA10 (RX)
     GPIO_InitStructure.GPIO_Mode  = GPIO_Mode_IN_FLOATING; // Input floating
     GPIO_Init(GPIOA, &GPIO_InitStructure);
-
+    USART_DeInit(USART1); // Reset USART1 to default state
     USART_InitTypeDef USART1_InitStructure;
     USART1_InitStructure.USART_BaudRate            = 115200;
     USART1_InitStructure.USART_WordLength          = USART_WordLength_8b;
@@ -73,7 +73,7 @@ void USART3_Init(void)
     GPIO_InitStructure.GPIO_Pin   = GPIO_Pin_11; // PB11 (RX)
     GPIO_InitStructure.GPIO_Mode  = GPIO_Mode_IN_FLOATING; // Input floating
     GPIO_Init(GPIOB, &GPIO_InitStructure);
-
+    USART_DeInit(USART3); // Reset USART3 to default state
     USART_InitTypeDef USART3_InitStructure;
     USART3_InitStructure.USART_BaudRate            = 115200;
     USART3_InitStructure.USART_WordLength          = USART_WordLength_8b;
@@ -88,7 +88,7 @@ void USART3_Init(void)
 
     USART_ITConfig(USART3, USART_IT_RXNE, ENABLE); // Enable RXNE interrupt for USART3
 }
-void USART4_init(void)
+void USART4_Init(void)
 {
     //打开GPIOC和USART4的时钟
     RCC_APB1PeriphClockCmd(RCC_APB1Periph_UART4, ENABLE);
@@ -104,7 +104,7 @@ void USART4_init(void)
     GPIO_InitStructure.GPIO_Pin   = GPIO_Pin_11; // PC11 (RX)
     GPIO_InitStructure.GPIO_Mode  = GPIO_Mode_IN_FLOATING; // Input floating
     GPIO_Init(GPIOC, &GPIO_InitStructure);
-
+    USART_DeInit(UART4); // Reset UART4 to default state
     USART_InitTypeDef UART4_InitStructure;
     UART4_InitStructure.USART_BaudRate            = 115200;
     UART4_InitStructure.USART_WordLength          = USART_WordLength_8b;
@@ -139,6 +139,9 @@ void USART_SendString(USART_TypeDef* USARTx, char* str)
 {
     while (*str != '\0') // 遍历到字符串结束符 '\0'
     {
+        // 等待“发送缓冲区空”标志（TXE）置位
+        while (USART_GetFlagStatus(USARTx, USART_FLAG_TXE) == RESET);
+
         USART_SendByte(USARTx, (uint16_t)*str); // 发送当前字符（强转为 uint16_t 匹配函数参数）
         str++; // 指向下一个字符（汉字占2-4字节时，会逐字节发送）
     }
@@ -153,6 +156,8 @@ void USART_SendString(USART_TypeDef* USARTx, char* str)
  */
 void USART_SendInt(USART_TypeDef* USARTx, int num)
 {
+    // 等待“发送缓冲区空”标志（TXE）置位
+    while (USART_GetFlagStatus(USARTx, USART_FLAG_TXE) == RESET);
     char buf[20]; // 足够存储整数的字符串缓冲区
     sprintf(buf, "%d", num); // 整数转字符串（如 123 → "123"）
     USART_SendString(USARTx, buf);
@@ -166,6 +171,8 @@ void USART_SendInt(USART_TypeDef* USARTx, int num)
 void USART_SendFloat(USART_TypeDef* USARTx, float num)
 {
     char buf[20];
+    // 等待“发送缓冲区空”标志（TXE）置位
+    while (USART_GetFlagStatus(USARTx, USART_FLAG_TXE) == RESET);
     sprintf(buf, "%.5f", num); // 浮点数转字符串（如 3.14 → "3.14"）
     USART_SendString(USARTx, buf);
 }

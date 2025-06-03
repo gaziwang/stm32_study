@@ -156,7 +156,7 @@ void EXTI3_IRQHandler(void)
         Delay_ms(10); // Debounce delay
         BEEP_On();
         EXTI_ClearITPendingBit(EXTI_Line3); // Clear the interrupt pending bit
-    }
+       }
 }
 
 
@@ -167,7 +167,7 @@ void USART3_IRQHandler(void)
     {
         uint16_t data = USART_ReceiveData(USART3); // Read received data
         while (USART_GetFlagStatus(USART3, USART_FLAG_TXE) == RESET) {
-            // Wait until the transmit buffer is empty
+
         }
         USART_SendData(USART3, data); // Echo back the received data
         USART_ClearITPendingBit(USART3, USART_IT_RXNE); // Clear the RXNE interrupt pending bit
