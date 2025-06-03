@@ -85,6 +85,8 @@ void USART3_Init(void)
 
     NVIC_USART3Config(); // Configure NVIC for USART3 interrupts
     USART_Cmd(USART3, ENABLE);
+
+    USART_ITConfig(USART3, USART_IT_RXNE, ENABLE); // Enable RXNE interrupt for USART3
 }
 void USART4_init(void)
 {
@@ -140,6 +142,8 @@ void USART_SendString(USART_TypeDef* USARTx, char* str)
         USART_SendByte(USARTx, (uint16_t)*str); // 发送当前字符（强转为 uint16_t 匹配函数参数）
         str++; // 指向下一个字符（汉字占2-4字节时，会逐字节发送）
     }
+    USART_SendByte(USARTx, '\r'); // 发送回车符
+    USART_SendByte(USARTx, '\n'); // 发送换行符
 }
 
 /**

@@ -159,6 +159,21 @@ void EXTI3_IRQHandler(void)
     }
 }
 
+
+void USART3_IRQHandler(void)
+{
+    // Check if the RXNE (Receive Data Register Not Empty) interrupt is triggered
+    if (USART_GetITStatus(USART3,USART_IT_RXNE) != RESET) 
+    {
+        uint16_t data = USART_ReceiveData(USART3); // Read received data
+        while (USART_GetFlagStatus(USART3, USART_FLAG_TXE) == RESET) {
+            // Wait until the transmit buffer is empty
+        }
+        USART_SendData(USART3, data); // Echo back the received data
+        USART_ClearITPendingBit(USART3, USART_IT_RXNE); // Clear the RXNE interrupt pending bit
+    }
+}
+
 /**
  * @brief  This function handles External lines 9 to 5 interrupt request.
  * @param  None
