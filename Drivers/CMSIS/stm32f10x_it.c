@@ -153,8 +153,7 @@ void EXTI3_IRQHandler(void)
 {
     if (EXTI_GetITStatus(EXTI_Line3) != RESET) // Check if the interrupt is triggered
     {
-        Delay_ms(10); // Debounce delay
-        BEEP_On();
+        LED0_Toggle();
         EXTI_ClearITPendingBit(EXTI_Line3); // Clear the interrupt pending bit
        }
 }

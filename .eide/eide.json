@@ -72,6 +72,12 @@
           },
           {
             "path": "Drivers/BSP/HSE_Set.h"
+          },
+          {
+            "path": "Drivers/BSP/Dma_m2m.c"
+          },
+          {
+            "path": "Drivers/BSP/Dma_m2m.h"
           }
         ],
         "folders": []
