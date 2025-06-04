@@ -9,6 +9,7 @@
 #include "lightsensor.h"
 #include "usart.h"
 #include "HSE_Set.h"
+#include "Dma_m2m.h"
 uint8_t key_flag = 0; // Flag to indicate if the key was pressed
 int main(void)
 {
@@ -26,33 +27,13 @@ int main(void)
     USART_SendFloat(USART3, 3.1415926f); // Send initialization message via USART3
     printf("wangdawdawdawdawdwadawdawdwadwaa\n"); // Print a message to the console
     printf("wangdawdawdawda\n"); // Print another message to the console
-    while (1) {
-        // key_flag = Get_keypress(); // Check if key 0 is pressed
-        // if (key_flag == 1) {
-        //     // KEY0
-        //     LED0_On(); // Turn on LED0
-        //     Delay_ms(1000);
-        //     LED0_Off(); // Turn off LED0
-        //     Delay_ms(1000);
-        //     LED0_Toggle(); // Wait for 1 second
-        // }
-        // if (key_flag == 2) {
-        //     // KEY1
-        //     LED0_Off(); // Turn off LED0
-        // }
-        // if (key_flag == 3) {
-        //     // KEY_up
-        //     LED1_On(); // Turn on LED1
-        //     Delay_ms(1000);
-        //     LED1_Off();     // Turn off LED1
-        //     Delay_ms(1000); // Wait for 1 second
-        // }
-        // if (Get_LightIntensity()) { // Check if the light intensity is below a threshold
-        //     LED1_On();              // Turn on LED1 if the light intensity is low
-        //     BEEP_Off();             // Turn off BEEP if the light intensity is low
-        // } else {
-        //     LED1_Off();
-        //     BEEP_On(); // Turn on BEEP if the light intensity is sufficient
-        // }
+
+    DMA_M2M_Init((uint32_t *)0x20000000, (uint32_t *)0x20001000, 100); // Example DMA initialization
+    // Main loop
+    // The main loop can be used to handle other tasks or just keep the program running
+
+
+    while (1) 
+    {
     }
 }
