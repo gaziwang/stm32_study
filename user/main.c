@@ -9,7 +9,7 @@
 #include "lightsensor.h"
 #include "usart.h"
 #include "HSE_Set.h"
-#include "Dma_m2m.h"
+#include "Dma.h"
 uint8_t key_flag = 0; // Flag to indicate if the key was pressed
 int main(void)
 {
@@ -21,19 +21,12 @@ int main(void)
     LIGHTSENSOR_Init(); // Initialize the light sensor
     EXTI_key1_config(); // Configure the external interrupt for the key
 
-    USART1_Init(); // Initialize USART1 for debugging or communication
     USART3_Init(); // Initialize USART3 if needed
     USART_SendString(USART3, "wangmengzhao666\r\n");
-    USART_SendFloat(USART3, 3.1415926f); // Send initialization message via USART3
+    USART_SendFloat(USART3, 3.1415926f);          // Send initialization message via USART3
     printf("wangdawdawdawdawdwadawdawdwadwaa\n"); // Print a message to the console
-    printf("wangdawdawdawda\n"); // Print another message to the console
+    printf("wangdawdawdawda\n");                  // Print another message to the console
 
-    DMA_M2M_Init((uint32_t *)0x20000000, (uint32_t *)0x20001000, 100); // Example DMA initialization
-    // Main loop
-    // The main loop can be used to handle other tasks or just keep the program running
-
-
-    while (1) 
-    {
+    while (1) {
     }
 }

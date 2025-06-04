@@ -17,7 +17,8 @@
             "beep.h": "c",
             "usart.h": "c",
             "hse_set.h": "c",
-            "stdio.h": "c"
+            "stdio.h": "c",
+            "dma.h": "c"
         }
     },
     "extensions": {}

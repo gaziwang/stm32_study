@@ -88,6 +88,7 @@ void USART3_Init(void)
 
     USART_ITConfig(USART3, USART_IT_RXNE, ENABLE); // Enable RXNE interrupt for USART3
 }
+
 void USART4_Init(void)
 {
     //打开GPIOC和USART4的时钟

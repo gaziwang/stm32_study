@@ -12,7 +12,6 @@ void LIGHTSENSOR_Init(void)
 
 uint16_t Get_LightIntensity(void)
 {
-    uint16_t light_intensity = 0;
     GPIO_ReadInputDataBit(GPIOF, GPIO_Pin_8); // Read the input data to clear any previous state
     //值为1时 光线较暗    为零时  光线较亮
     return GPIO_ReadInputDataBit(GPIOF, GPIO_Pin_8);
