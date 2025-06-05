@@ -18,7 +18,8 @@
             "usart.h": "c",
             "hse_set.h": "c",
             "stdio.h": "c",
-            "dma.h": "c"
+            "dma.h": "c",
+            "led.h": "c"
         }
     },
     "extensions": {}

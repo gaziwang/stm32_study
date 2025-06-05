@@ -29,6 +29,8 @@
 .\objects\stm32f10x_it.o: Drivers\CMSIS\stm32f10x_usart.h
 .\objects\stm32f10x_it.o: Drivers\CMSIS\stm32f10x_wwdg.h
 .\objects\stm32f10x_it.o: Drivers\CMSIS\misc.h
+.\objects\stm32f10x_it.o: .\Drivers\BSP\usart.h
+.\objects\stm32f10x_it.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
 .\objects\stm32f10x_it.o: .\Drivers\BSP\LED.h
 .\objects\stm32f10x_it.o: .\Drivers\CMSIS\system\Delay.h
 .\objects\stm32f10x_it.o: .\Drivers\BSP\Beep.h

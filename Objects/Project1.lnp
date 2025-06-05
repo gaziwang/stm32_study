@@ -33,6 +33,7 @@
 ".\objects\lightsensor.o"
 ".\objects\hse_set.o"
 ".\objects\usart.o"
+".\objects\dma.o"
 ".\objects\main.o"
 --library_type=microlib --strict --scatter ".\Objects\Project1.sct"
 --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols

@@ -25,7 +25,7 @@
 
 #include "stm32f10x_it.h"
 extern uint32_t SysTick_Counter; // Declare the SysTick_Counter variable from Delay.c
-
+uint8_t key_flag = 0; // Declare a flag to indicate key press
 /** @addtogroup STM32F10x_StdPeriph_Examples
  * @{
  */
@@ -153,7 +153,7 @@ void EXTI3_IRQHandler(void)
 {
     if (EXTI_GetITStatus(EXTI_Line3) != RESET) // Check if the interrupt is triggered
     {
-        LED0_Toggle();
+        key_flag = 1;
         EXTI_ClearITPendingBit(EXTI_Line3); // Clear the interrupt pending bit
        }
 }

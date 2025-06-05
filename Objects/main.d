@@ -30,10 +30,11 @@
 .\objects\main.o: .\Drivers\CMSIS\misc.h
 .\objects\main.o: .\Drivers\CMSIS\system\Delay.h
 .\objects\main.o: .\Drivers\CMSIS\stm32f10x_it.h
+.\objects\main.o: .\Drivers\BSP\usart.h
+.\objects\main.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
 .\objects\main.o: .\Drivers\BSP\LED.h
 .\objects\main.o: .\Drivers\BSP\Beep.h
 .\objects\main.o: .\Drivers\BSP\key.h
 .\objects\main.o: .\Drivers\BSP\lightsensor.h
-.\objects\main.o: .\Drivers\BSP\usart.h
-.\objects\main.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
 .\objects\main.o: .\Drivers\BSP\HSE_Set.h
+.\objects\main.o: .\Drivers\BSP\Dma.h

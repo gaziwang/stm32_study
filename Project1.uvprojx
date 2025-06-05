@@ -745,6 +745,16 @@
               <FileType>5</FileType>
               <FilePath>.\Drivers\BSP\usart.h</FilePath>
             </File>
+            <File>
+              <FileName>Dma.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Drivers\BSP\Dma.c</FilePath>
+            </File>
+            <File>
+              <FileName>Dma.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Drivers\BSP\Dma.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
