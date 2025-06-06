@@ -10,8 +10,9 @@
 #include "usart.h"
 #include "HSE_Set.h"
 #include "Dma.h"
+#include "i2c.h"
 extern uint8_t key_flag;
-uint8_t RX_Buffer[1000]; // 接收缓冲区
+uint8_t RX_Buffer[256];                             // 接收缓冲区
 uint8_t TX_Buffer[] = "Hello from USART3 DMA!\r\n"; // 发送缓冲区
 
 int main(void)
@@ -26,36 +27,28 @@ int main(void)
     USART3_Init(); // 确保传入波特率参数
     USART_SendString(USART3, "Testing DMA...\r\n");
     EXTI_key1_config();
-    USART3_DMA_RX_Init(RX_Buffer, sizeof(RX_Buffer));
-
-  while (1) {
-        // 这里可以添加按键检测触发DMA发送
-        if(key_flag) {
+    // USART3_DMA_RX_Init(RX_Buffer, sizeof(RX_Buffer));
+    I2C1_Init();
+    EEPROM_WritePage(0x00, (uint8_t *)"Hellowb", 12); // 写入数据到EEPROM
+    uint8_t read_buffer[20];
+    EEPROM_ReadBytes(0x00, read_buffer, 13); // 从EEPROM读取数据
+    printf("Read from EEPROM: %s\n", read_buffer);
+    while (1) {
+        if (key_flag) {
             key_flag = 0;
-            
             // 准备要发送的数据
             uint32_t len = sizeof(TX_Buffer) - 1; // 减去字符串结束符
-            
             // 使用DMA发送
             USART3_DMA_TX_Init(TX_Buffer, len); // 初始化并启动发送
-            
+
             // 等待发送完成
-            if(DMA_GetFlagStatus(DMA1_FLAG_TE2)) {
-                USART_SendString(USART3, "DMA transfer error!\r\n");
+            if (DMA_GetFlagStatus(DMA1_FLAG_TE2)) {
+                USART_SendString(USART3, "DMA transfer error!\r");
                 DMA_ClearFlag(DMA1_FLAG_TE2);
             }
-            while(DMA_GetFlagStatus(DMA1_FLAG_TC2) == RESET);
+            while (DMA_GetFlagStatus(DMA1_FLAG_TC2) == RESET);
             DMA_ClearFlag(DMA1_FLAG_TC2);
-        }
-        
-        // 检查接收数据
-        uint32_t received = sizeof(RX_Buffer) - DMA_GetCurrDataCounter(DMA1_Channel3);
-        if(received > 0) {
-            // 处理接收到的数据
-            USART_SendString(USART3, "Received data: ");
-            USART_SendData(USART3, RX_Buffer[0]); // 示例：发送第一个字节
+            USART_SendString(USART3, "DMA transfer complete!\n");
         }
     }
-
 }
-

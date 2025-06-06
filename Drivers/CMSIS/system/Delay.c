@@ -4,7 +4,7 @@
 volatile uint32_t SysTick_Counter = 0;
 
 /**
- * @brief 初始化SysTick定时器（配置为1ms中断）
+ * @brief 初始化SysTick定时器（配置为1ms中断）s
  * @note 依赖系统时钟（SystemCoreClock），需先配置系统时钟为72MHz
  */
 void Delay_Init(void)
@@ -52,4 +52,16 @@ void Delay_us(uint32_t us)
         __NOP(); // 空操作指令（编译器不会优化掉循环）
     }
 }
+
+/**
+ * @brief 获取当前系统运行的毫秒数
+ * @return 当前毫秒计数（从上电开始）
+ */
+uint32_t millis(void)
+{
+    return SysTick_Counter;
+}
+
+
+
 

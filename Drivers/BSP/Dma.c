@@ -66,7 +66,9 @@ void DMA_M2M_Init(uint32_t *source, uint32_t *destination, uint32_t BufferSize)
 }
 
 void USART3_DMA_TX_Init(uint8_t *source, uint32_t BufferSize)
-{
+{  
+    DMA_Cmd(DMA1_Channel2, DISABLE); // 1. 禁用 DMA，确保可配置
+    DMA_ClearFlag(DMA1_FLAG_TC2 | DMA1_FLAG_TE2); // 2. 清除上次状态
     DMA_InitTypeDef DMA_InitStructure;
     RCC_AHBPeriphClockCmd(RCC_AHBPeriph_DMA1, ENABLE);                      // 使能 DMA1 时钟
     DMA_InitStructure.DMA_PeripheralBaseAddr = (uint32_t)&(USART3->DR);     // 外设地址: USART3 数据寄存器

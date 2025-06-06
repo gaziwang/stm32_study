@@ -26,6 +26,8 @@
 #include "stm32f10x_it.h"
 extern uint32_t SysTick_Counter; // Declare the SysTick_Counter variable from Delay.c
 uint8_t key_flag = 0; // Declare a flag to indicate key press
+#define DEBOUNCE_TIME 20  // 消抖时间 20ms
+volatile uint32_t last_key_time = 0;
 /** @addtogroup STM32F10x_StdPeriph_Examples
  * @{
  */
@@ -150,12 +152,22 @@ void SysTick_Handler(void)
  * @retval None
  */
 void EXTI3_IRQHandler(void)
-{
-    if (EXTI_GetITStatus(EXTI_Line3) != RESET) // Check if the interrupt is triggered
+{   
+
+
+    if (EXTI_GetITStatus(EXTI_Line3) != RESET)
     {
-        key_flag = 1;
-        EXTI_ClearITPendingBit(EXTI_Line3); // Clear the interrupt pending bit
-       }
+        uint32_t now = millis();
+        if ((now - last_key_time) > DEBOUNCE_TIME)
+        {
+            last_key_time = now;
+            key_flag = 1;
+            LED0_Toggle();
+            printf("Key1 pressed!\r\n");
+        }
+
+        EXTI_ClearITPendingBit(EXTI_Line3);
+    }
 }
 
 
@@ -166,7 +178,6 @@ void USART3_IRQHandler(void)
     {
         uint16_t data = USART_ReceiveData(USART3); // Read received data
         while (USART_GetFlagStatus(USART3, USART_FLAG_TXE) == RESET) {
-
         }
         USART_SendData(USART3, data); // Echo back the received data
         USART_ClearITPendingBit(USART3, USART_IT_RXNE); // Clear the RXNE interrupt pending bit

@@ -78,6 +78,12 @@
           },
           {
             "path": "Drivers/BSP/Dma.h"
+          },
+          {
+            "path": "Drivers/BSP/i2c.c"
+          },
+          {
+            "path": "Drivers/BSP/i2c.h"
           }
         ],
         "folders": []

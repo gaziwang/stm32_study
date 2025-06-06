@@ -19,7 +19,9 @@
             "hse_set.h": "c",
             "stdio.h": "c",
             "dma.h": "c",
-            "led.h": "c"
+            "led.h": "c",
+            "stm32f10x_i2c.h": "c",
+            "i2c.h": "c"
         }
     },
     "extensions": {}
