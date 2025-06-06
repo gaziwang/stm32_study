@@ -38,3 +38,4 @@
 .\objects\main.o: .\Drivers\BSP\lightsensor.h
 .\objects\main.o: .\Drivers\BSP\HSE_Set.h
 .\objects\main.o: .\Drivers\BSP\Dma.h
+.\objects\main.o: .\Drivers\BSP\i2c.h
