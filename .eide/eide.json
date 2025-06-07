@@ -84,6 +84,12 @@
           },
           {
             "path": "Drivers/BSP/i2c.h"
+          },
+          {
+            "path": "Drivers/BSP/SPI.c"
+          },
+          {
+            "path": "Drivers/BSP/SPI.h"
           }
         ],
         "folders": []
