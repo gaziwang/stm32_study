@@ -5,17 +5,24 @@
 #include "stm32f10x_i2c.h"
 #include "Delay.h"
 
-
-void I2C1_Init(void);
-void EEprom_SendByte(uint8_t address, uint8_t data);
-void EEprom_ReadByte(uint8_t address, uint8_t *data);
-void EEPROM_WritePage(uint8_t addr, uint8_t* data, uint8_t len);
-void EEPROM_ReadBytes(uint8_t addr, uint8_t* buffer, uint16_t len);
+void HardI2C_Init(void);
+void HardI2C_WriteByte(uint8_t memAddr, uint8_t data);
+uint8_t HardI2C_ReadByte(uint8_t memAddr);
+void HardI2C_WritePage(uint8_t memAddr, const uint8_t *data, uint8_t len);
+void HardI2C_ReadBytes(uint8_t memAddr, uint8_t *data, uint16_t len);
 void SoftI2C_Init(void);
-void SoftI2C_WriteByte(uint8_t devAddr, uint8_t memAddr, uint8_t data);
-uint8_t SoftI2C_ReadByte(uint8_t devAddr, uint8_t memAddr);
+void SoftI2C_Start(void);
+void SoftI2C_Stop(void);
+void SoftI2C_SendByte(uint8_t byte);
+uint8_t SoftI2C_ReadByte(uint8_t ack);
+void SoftI2C_WriteByte(uint8_t memAddr, uint8_t data);
+uint8_t SoftI2C_ReadByteFrom(uint8_t memAddr);
+void SoftI2C_WritePage(uint8_t memAddr, const uint8_t *data, uint8_t len);
+void SoftI2C_WriteBytes(uint8_t memAddr, const uint8_t *data, uint16_t len);
+void SoftI2C_ReadBytes(uint8_t memAddr, uint8_t *data, uint16_t len);
 
 #endif
+
 
 
 

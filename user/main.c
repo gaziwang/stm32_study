@@ -27,6 +27,7 @@ int main(void)
     USART3_Init(); // 确保传入波特率参数
     USART_SendString(USART3, "Testing DMA...\r\n");
     EXTI_key1_config();
+    EXTI_key0_config();
     USART3_DMA_RX_Init(RX_Buffer, sizeof(RX_Buffer));
     // I2C1_Init();
     // EEPROM_WritePage(0x00, (uint8_t *)"Hellowb", 12); // 写入数据到EEPROM
@@ -34,8 +35,8 @@ int main(void)
     // EEPROM_ReadBytes(0x00, read_buffer, 13); // 从EEPROM读取数据
     
     SoftI2C_Init(); // 初始化模拟I2C
-    SoftI2C_WriteByte(0xA0, 0x00, 0xAA); // 写入数据到EEPROM
-    uint8_t read_data = SoftI2C_ReadByte(0xA0, 0x00); // 从EEPROM读取数据
+    SoftI2C_WriteByte(0x00, 0x22); // 写入数据到EEPROM
+    uint8_t read_data = SoftI2C_ReadByteFrom(0x00); // 从EEPROM读取数据
     printf("Read data: 0x%02X\r\n", read_data); // 打印读取的数据
 
     while (1) {

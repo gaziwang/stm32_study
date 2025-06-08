@@ -34,3 +34,4 @@
 .\objects\stm32f10x_it.o: .\Drivers\BSP\LED.h
 .\objects\stm32f10x_it.o: .\Drivers\CMSIS\system\Delay.h
 .\objects\stm32f10x_it.o: .\Drivers\BSP\Beep.h
+.\objects\stm32f10x_it.o: .\Drivers\BSP\SPI.h

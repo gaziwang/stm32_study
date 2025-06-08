@@ -34,6 +34,7 @@
 .\objects\main.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
 .\objects\main.o: .\Drivers\BSP\LED.h
 .\objects\main.o: .\Drivers\BSP\Beep.h
+.\objects\main.o: .\Drivers\BSP\SPI.h
 .\objects\main.o: .\Drivers\BSP\key.h
 .\objects\main.o: .\Drivers\BSP\lightsensor.h
 .\objects\main.o: .\Drivers\BSP\HSE_Set.h

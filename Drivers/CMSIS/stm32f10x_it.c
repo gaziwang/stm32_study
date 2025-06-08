@@ -25,8 +25,8 @@
 
 #include "stm32f10x_it.h"
 extern uint32_t SysTick_Counter; // Declare the SysTick_Counter variable from Delay.c
-uint8_t key_flag = 0; // Declare a flag to indicate key press
-#define DEBOUNCE_TIME 20  // 消抖时间 20ms
+uint8_t key_flag = 0;            // Declare a flag to indicate key press
+#define DEBOUNCE_TIME 20         // 消抖时间 20ms
 volatile uint32_t last_key_time = 0;
 /** @addtogroup STM32F10x_StdPeriph_Examples
  * @{
@@ -152,16 +152,13 @@ void SysTick_Handler(void)
  * @retval None
  */
 void EXTI3_IRQHandler(void)
-{   
+{
 
-
-    if (EXTI_GetITStatus(EXTI_Line3) != RESET)
-    {
+    if (EXTI_GetITStatus(EXTI_Line3) != RESET) {
         uint32_t now = millis();
-        if ((now - last_key_time) > DEBOUNCE_TIME)
-        {
+        if ((now - last_key_time) > DEBOUNCE_TIME) {
             last_key_time = now;
-            key_flag = 1;
+            key_flag      = 1;
             LED0_Toggle();
             printf("Key1 pressed!\r\n");
         }
@@ -169,17 +166,41 @@ void EXTI3_IRQHandler(void)
         EXTI_ClearITPendingBit(EXTI_Line3);
     }
 }
+void EXTI4_IRQHandler(void)
+{
+    if (EXTI_GetITStatus(EXTI_Line4) != RESET) {
+        uint32_t now = millis();
+        if ((now - last_key_time) > DEBOUNCE_TIME) {
+            last_key_time = now;
+            uint8_t data[4] = {0};
+
+            SPI2_Init();
+            GPIO_ResetBits(GPIOB, GPIO_Pin_12); // CS 拉低
+
+            SPI2_FLASH_Send_byte(0x9F);         // 发送 JEDEC ID 指令
+            data[0] = SPI2_FLASH_Recive_byte(); // Manufacturer ID
+            data[1] = SPI2_FLASH_Recive_byte(); // Memory Type
+            data[2] = SPI2_FLASH_Recive_byte(); // Capacity
+
+            GPIO_SetBits(GPIOB, GPIO_Pin_12);   // CS 拉高
+
+            printf("JEDEC ID:%02X %02X %02X\r\n", data[0], data[1], data[2]);
+
+            }
+        }
+
+        EXTI_ClearITPendingBit(EXTI_Line4); // 清除中断挂起标志
+}
 
 
 void USART3_IRQHandler(void)
 {
     // Check if the RXNE (Receive Data Register Not Empty) interrupt is triggered
-    if (USART_GetITStatus(USART3,USART_IT_RXNE) != RESET) 
-    {
+    if (USART_GetITStatus(USART3, USART_IT_RXNE) != RESET) {
         uint16_t data = USART_ReceiveData(USART3); // Read received data
         while (USART_GetFlagStatus(USART3, USART_FLAG_TXE) == RESET) {
         }
-        USART_SendData(USART3, data); // Echo back the received data
+        USART_SendData(USART3, data);                   // Echo back the received data
         USART_ClearITPendingBit(USART3, USART_IT_RXNE); // Clear the RXNE interrupt pending bit
     }
 }
