@@ -30,10 +30,10 @@ void SPI2_Init()
     SPI_InitStructure.SPI_Direction         = SPI_Direction_2Lines_FullDuplex; // 双线全双工
     SPI_InitStructure.SPI_Mode              = SPI_Mode_Master;                 // 主模式
     SPI_InitStructure.SPI_DataSize          = SPI_DataSize_8b;                 // 8位数据帧
-    SPI_InitStructure.SPI_CPOL              = SPI_CPOL_High;                    // 时钟极性
+    SPI_InitStructure.SPI_CPOL              = SPI_CPOL_High;                   // 时钟极性
     SPI_InitStructure.SPI_CPHA              = SPI_CPHA_2Edge;                  // 时钟相位
     SPI_InitStructure.SPI_NSS               = SPI_NSS_Soft;                    // 软件NSS管理
-    SPI_InitStructure.SPI_BaudRatePrescaler = SPI_BaudRatePrescaler_2;        // 波特率预分频
+    SPI_InitStructure.SPI_BaudRatePrescaler = SPI_BaudRatePrescaler_2;         // 波特率预分频
     SPI_InitStructure.SPI_FirstBit          = SPI_FirstBit_MSB;                // MSB优先
     SPI_InitStructure.SPI_CRCPolynomial     = 0;                               // CRC多项式
     SPI_Init(SPI2, &SPI_InitStructure);                                        // 初始化SPI2
@@ -42,30 +42,63 @@ void SPI2_Init()
 }
 
 uint8_t SPI2_FLASH_Send_byte(uint8_t data)
-{   //检查并且等待发送缓冲区空
-    
+{ // 检查并且等待发送缓冲区空
     volatile int i = 1000;
-    while (SPI_I2S_GetFlagStatus(SPI2, SPI_I2S_FLAG_TXE) == RESET)
-    {
-        if(i-- == 0) // 超时处理
+    while (SPI_I2S_GetFlagStatus(SPI2, SPI_I2S_FLAG_TXE) == RESET) {
+        if (i-- == 0) // 超时处理
         {
             return 0; // 返回0表示发送失败
         }
-
     }
     SPI_I2S_SendData(SPI2, data); // 发送数据
-    while (SPI_I2S_GetFlagStatus(SPI2, SPI_I2S_FLAG_RXNE) == RESET)
-    {
-        if(i-- == 0) // 超时处理
+    while (SPI_I2S_GetFlagStatus(SPI2, SPI_I2S_FLAG_RXNE) == RESET) {
+        if (i-- == 0) // 超时处理
         {
             return 0; // 返回0表示接收失败
         }
     }
     return SPI_I2S_ReceiveData(SPI2); // 返回接收到的数据
 }
-uint8_t SPI2_FLASH_Recive_byte(void)
+uint8_t SPI2_FLASH_Recive_byte(uint8_t dummy)
 {
-    return SPI2_FLASH_Send_byte(0xFF); // 发送一个空字节以接收数据
+    return SPI2_FLASH_Send_byte(dummy); // 发送一个空字节以接收数据
+}
+void SPI2_FLASH_Write_Enable(void)
+{
+    GPIO_ResetBits(GPIOB, GPIO_Pin_12); // CS 拉低
+    SPI2_FLASH_Send_byte(0x06);         // 发送写使能指令
+    GPIO_SetBits(GPIOB, GPIO_Pin_12);   // CS 拉高
+}
+void SPI_FLASH_WaitBusy(void)
+{
+    GPIO_ResetBits(GPIOB, GPIO_Pin_12);
+    SPI2_FLASH_Send_byte(0x05);                  // 读取状态寄存器命令
+    while (SPI2_FLASH_Recive_byte(0xFF) & 0x01); // 等待BUSY清除
+    GPIO_SetBits(GPIOB, GPIO_Pin_12);
+}
+void SPI_FLASH_SectorErase(uint32_t sectorAddress)
+{
+    GPIO_ResetBits(GPIOB, GPIO_Pin_12);                 // CS 拉低
+    SPI2_FLASH_Send_byte(0x20);                         // 发送扇区擦除指令
+    SPI2_FLASH_Send_byte((sectorAddress >> 16) & 0xFF); // 发送高字节地址
+    SPI2_FLASH_Send_byte((sectorAddress >> 8) & 0xFF);  // 发送中间字节地址
+    SPI2_FLASH_Send_byte(sectorAddress & 0xFF);         // 发送低字节地址
+    GPIO_SetBits(GPIOB, GPIO_Pin_12);                   // CS 拉高
 }
 
+void SPI2_FLASH_WriteByte(uint32_t address, uint8_t *data, uint32_t length)
+{
+    SPI2_FLASH_Write_Enable();                           // 发送写使能指令
+    GPIO_ResetBits(GPIOB, GPIO_Pin_12);                  // CS 拉低
+    SPI2_FLASH_Send_byte(0x02);                          // 发送页编程指令
+    SPI2_FLASH_Send_byte((address >> 16) & 0xFF);       // 发送高字节地址
+    SPI2_FLASH_Send_byte((address >> 8) & 0xFF);        // 发送中间字节地址
+    SPI2_FLASH_Send_byte(address & 0xFF);               // 发送低字节地址
+
+    for (uint32_t i = 0; i < length; i++) {
+        SPI2_FLASH_Send_byte(data[i]); // 发送数据
+    }
+
+    GPIO_SetBits(GPIOB, GPIO_Pin_12); // CS 拉高
+}
 

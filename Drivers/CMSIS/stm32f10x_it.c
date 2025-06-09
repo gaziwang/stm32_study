@@ -172,26 +172,10 @@ void EXTI4_IRQHandler(void)
         uint32_t now = millis();
         if ((now - last_key_time) > DEBOUNCE_TIME) {
             last_key_time = now;
-            uint8_t data[4] = {0};
-
-            SPI2_Init();
-            GPIO_ResetBits(GPIOB, GPIO_Pin_12); // CS 拉低
-
-            SPI2_FLASH_Send_byte(0x9F);         // 发送 JEDEC ID 指令
-            data[0] = SPI2_FLASH_Recive_byte(); // Manufacturer ID
-            data[1] = SPI2_FLASH_Recive_byte(); // Memory Type
-            data[2] = SPI2_FLASH_Recive_byte(); // Capacity
-
-            GPIO_SetBits(GPIOB, GPIO_Pin_12);   // CS 拉高
-
-            printf("JEDEC ID:%02X %02X %02X\r\n", data[0], data[1], data[2]);
-
-            }
         }
-
         EXTI_ClearITPendingBit(EXTI_Line4); // 清除中断挂起标志
+    }
 }
-
 
 void USART3_IRQHandler(void)
 {
