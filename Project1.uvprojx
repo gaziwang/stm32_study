@@ -341,7 +341,7 @@
               <MiscControls></MiscControls>
               <Define>USE_STDPERIPH_DRIVER,STM32F10X_HD</Define>
               <Undefine></Undefine>
-              <IncludePath>.\Drivers\CMSIS\startup;.\Drivers\CMSIS\system;.\Drivers\CMSIS;.\Drivers\BSP;.\Drivers;.\user</IncludePath>
+              <IncludePath>.\Drivers\CMSIS\startup;.\Drivers\CMSIS\system;.\Drivers\CMSIS;.\Drivers\BSP;.\Drivers;.\user;.\user\FATFs\source</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -774,6 +774,31 @@
               <FileName>SPI.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\Drivers\BSP\SPI.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>FATFS</GroupName>
+          <Files>
+            <File>
+              <FileName>diskio.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\user\FATFs\source\diskio.c</FilePath>
+            </File>
+            <File>
+              <FileName>ff.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\user\FATFs\source\ff.c</FilePath>
+            </File>
+            <File>
+              <FileName>ffsystem.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\user\FATFs\source\ffsystem.c</FilePath>
+            </File>
+            <File>
+              <FileName>ffunicode.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\user\FATFs\source\ffunicode.c</FilePath>
             </File>
           </Files>
         </Group>

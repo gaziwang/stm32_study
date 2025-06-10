@@ -1,5 +1,5 @@
 #include "SPI.h"
-
+#define PAGE_SIZE 256
 void SPI2_Init()
 {
     RCC_APB1PeriphClockCmd(RCC_APB1Periph_SPI2, ENABLE);
@@ -40,7 +40,6 @@ void SPI2_Init()
     SPI_Cmd(SPI2, ENABLE);                                                     // 使能SPI2
     GPIO_SetBits(GPIOB, GPIO_Pin_12);                                          // 设置NSS引脚为高电平
 }
-
 uint8_t SPI2_FLASH_Send_byte(uint8_t data)
 { // 检查并且等待发送缓冲区空
     volatile int i = 1000;
@@ -85,7 +84,6 @@ void SPI_FLASH_SectorErase(uint32_t sectorAddress)
     SPI2_FLASH_Send_byte(sectorAddress & 0xFF);         // 发送低字节地址
     GPIO_SetBits(GPIOB, GPIO_Pin_12);                   // CS 拉高
 }
-
 void SPI2_FLASH_WriteByte(uint32_t address, uint8_t *data, uint32_t length)
 {
     SPI2_FLASH_Write_Enable();                           // 发送写使能指令
@@ -99,6 +97,71 @@ void SPI2_FLASH_WriteByte(uint32_t address, uint8_t *data, uint32_t length)
         SPI2_FLASH_Send_byte(data[i]); // 发送数据
     }
 
+    GPIO_SetBits(GPIOB, GPIO_Pin_12); // CS 拉高
+}
+void SPI2_FLASH_WriteBytes(uint32_t address, const uint8_t *data, uint32_t length)
+{
+    while (length > 0) {
+        uint32_t page_offset = address % PAGE_SIZE;
+        uint32_t space_in_page = PAGE_SIZE - page_offset;
+        uint32_t chunk_size = (length < space_in_page) ? length : space_in_page;
+
+        SPI2_FLASH_Write_Enable();
+        GPIO_ResetBits(GPIOB, GPIO_Pin_12); // CS 拉低
+
+        SPI2_FLASH_Send_byte(0x02); // Page Program 指令
+        SPI2_FLASH_Send_byte((address >> 16) & 0xFF);
+        SPI2_FLASH_Send_byte((address >> 8) & 0xFF);
+        SPI2_FLASH_Send_byte(address & 0xFF);
+
+        for (uint32_t i = 0; i < chunk_size; i++) {
+            SPI2_FLASH_Send_byte(data[i]);
+        }
+        GPIO_SetBits(GPIOB, GPIO_Pin_12); // CS 拉高
+        SPI_FLASH_WaitBusy(); // 等待写完成
+        // 更新指针和地址
+        address += chunk_size;
+        data += chunk_size;
+        length -= chunk_size;
+    }
+}
+uint32_t SPI2_FLASH_ReadID(void)
+{
+    uint8_t deviceID[3] = {0};
+
+    SPI2_Init();
+    GPIO_ResetBits(GPIOB, GPIO_Pin_12); // CS 拉低
+    SPI2_FLASH_Send_byte(0x9F);         // 发送 JEDEC ID 指令
+    deviceID[0] = SPI2_FLASH_Recive_byte(0xFF); // Manufacturer ID
+    deviceID[1] = SPI2_FLASH_Recive_byte(0xFF); // Memory Type
+    deviceID[2] = SPI2_FLASH_Recive_byte(0xFF); // Capacity
+    GPIO_SetBits(GPIOB, GPIO_Pin_12); // CS 拉高
+    return (deviceID[0] << 16) | (deviceID[1] << 8) | deviceID[2]; // 返回ID
+
+}
+void SPI2_FLASH_PowerDown(void)
+{
+    GPIO_ResetBits(GPIOB, GPIO_Pin_12); // CS 拉低
+    SPI2_FLASH_Send_byte(0xB9);          // 发送休眠指令
+    GPIO_SetBits(GPIOB, GPIO_Pin_12);    // CS 拉高
+}
+void SPI2_FLASH_ReleasePowerDown(void)
+{
+    GPIO_ResetBits(GPIOB, GPIO_Pin_12); // CS 拉低
+    SPI2_FLASH_Send_byte(0xAB);          // 发送唤醒指令
+    GPIO_SetBits(GPIOB, GPIO_Pin_12);    // CS 拉高
+}
+void SPI_FLASH_ReadData(uint32_t address, uint8_t *buffer, uint32_t length)
+{
+    GPIO_ResetBits(GPIOB, GPIO_Pin_12); // CS 拉低
+
+    SPI2_FLASH_Send_byte(0x03); // READ DATA 指令
+    SPI2_FLASH_Send_byte((address >> 16) & 0xFF); // 高位地址
+    SPI2_FLASH_Send_byte((address >> 8) & 0xFF);  // 中位地址
+    SPI2_FLASH_Send_byte(address & 0xFF);         // 低位地址
+    for (uint32_t i = 0; i < length; i++) {
+        buffer[i] = SPI2_FLASH_Send_byte(0xFF); // 读取数据
+    }
     GPIO_SetBits(GPIOB, GPIO_Pin_12); // CS 拉高
 }
 

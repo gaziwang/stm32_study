@@ -39,64 +39,47 @@ int main(void)
     SoftI2C_WriteByte(0x00, 0x22);                  // 写入数据到EEPROM
     uint8_t read_data = SoftI2C_ReadByteFrom(0x00); // 从EEPROM读取数据
     printf("Read data: 0x%02X\r\n", read_data);     // 打印读取的数据
-    
-    
-    
-    
-    
-    
-    
-    
-    uint8_t data[4] = {0};
+ 
+
 
     SPI2_Init();
-    GPIO_ResetBits(GPIOB, GPIO_Pin_12); // CS 拉低
-    SPI2_FLASH_Send_byte(0x9F);         // 发送 JEDEC ID 指令
-    data[0] = SPI2_FLASH_Recive_byte(0xFF); // Manufacturer ID
-    data[1] = SPI2_FLASH_Recive_byte(0xFF); // Memory Type
-    data[2] = SPI2_FLASH_Recive_byte(0xFF); // Capacity
-    GPIO_SetBits(GPIOB, GPIO_Pin_12); // CS 拉高
-    printf("JEDEC ID:%02X %02X %02X\r\n", data[0], data[1], data[2]);
-
-
-
-
-
-
-
-
-
+    printf("SPI Flash ID: 0x%06X\r\n ", SPI2_FLASH_ReadID()); // 打印Flash ID
 
     Delay_ms(2000); // 延时1秒
-    uint8_t status[20] = {0};
+    uint8_t status[16] = {0};
 	SPI2_FLASH_Write_Enable();
     SPI_FLASH_SectorErase(0x000000); // 擦除扇区0
     Delay_ms(100); // 等待擦除完成
     printf("Erasing sector 0...擦除成功\r\n");
     SPI2_FLASH_Write_Enable();
     GPIO_ResetBits(GPIOB, GPIO_Pin_12); // CS 拉低
-    SPI2_FLASH_Send_byte(0x03); // 发送读取状态寄存器指令
-    SPI2_FLASH_Recive_byte(0x00); // 读取状态寄存器
-    SPI2_FLASH_Recive_byte(0x00); // 读取状态寄存器
-    SPI2_FLASH_Recive_byte(0x00); // 读取状态寄存器
+    SPI2_FLASH_Send_byte(0x03);
+    SPI2_FLASH_Recive_byte(0x00); 
+    SPI2_FLASH_Recive_byte(0x00); 
+    SPI2_FLASH_Recive_byte(0x00); 
     for (int i = 0; i < 3; i++) {
         status[i] = SPI2_FLASH_Recive_byte(0xFF);  // 接收数据
         printf("%02X",status[i]);
     }
+    printf("\r\n");
     GPIO_SetBits(GPIOB, GPIO_Pin_12); // CS 拉高
 
-    SPI2_FLASH_WriteByte(0x000000, (uint8_t *)"Hello, SPI Flash!", 17); // 写入数据到Flash
+    SPI2_FLASH_WriteByte(0x000000, (uint8_t *)"Hello, SPI Flash!", 18); // 写入数据到Flash
     Delay_ms(100); // 等待写入完成
     SPI2_FLASH_Write_Enable(); // 发送写使能指令
     GPIO_ResetBits(GPIOB, GPIO_Pin_12); // CS 拉低
-    SPI2_FLASH_Send_byte(0x03); // 发送读取状态寄存器指令
-    SPI2_FLASH_Recive_byte(0x00); // 读取状态寄存器
-    SPI2_FLASH_Recive_byte(0x00); // 读取状态寄存器
-    SPI2_FLASH_Recive_byte(0x00); // 读取状态寄存器
-    for (int i = 0; i < 16; i++) {
+    SPI2_FLASH_Send_byte(0x03); 
+    SPI2_FLASH_Recive_byte(0x00); 
+    SPI2_FLASH_Recive_byte(0x00); 
+    SPI2_FLASH_Recive_byte(0x00); 
+    for (int i = 0; i < 17; i++) {
         status[i] = SPI2_FLASH_Recive_byte(0xFF);  // 接收数据
     }
-    printf("Status after write: %s", status);
+    printf("Status after write:%.*s\r\n", 17, status);
+    for (int i = 0; i < 17; i++) {
+        printf("%c", status[i]);
+    }
+    printf("\r\n");
     GPIO_SetBits(GPIOB, GPIO_Pin_12); // CS 拉高
 
     while (1) {

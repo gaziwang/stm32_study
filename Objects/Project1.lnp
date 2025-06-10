@@ -36,6 +36,10 @@
 ".\objects\dma.o"
 ".\objects\i2c.o"
 ".\objects\spi.o"
+".\objects\diskio.o"
+".\objects\ff.o"
+".\objects\ffsystem.o"
+".\objects\ffunicode.o"
 ".\objects\main.o"
 --library_type=microlib --strict --scatter ".\Objects\Project1.sct"
 --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols

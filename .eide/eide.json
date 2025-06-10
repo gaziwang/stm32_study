@@ -101,7 +101,35 @@
             "path": "user/main.c"
           }
         ],
-        "folders": []
+        "folders": [
+          {
+            "name": "FATFS",
+            "files": [
+              {
+                "path": "user/FATFs/source/diskio.c"
+              },
+              {
+                "path": "user/FATFs/source/diskio.h"
+              },
+              {
+                "path": "user/FATFs/source/ff.c"
+              },
+              {
+                "path": "user/FATFs/source/ff.h"
+              },
+              {
+                "path": "user/FATFs/source/ffconf.h"
+              },
+              {
+                "path": "user/FATFs/source/ffsystem.c"
+              },
+              {
+                "path": "user/FATFs/source/ffunicode.c"
+              }
+            ],
+            "folders": []
+          }
+        ]
       },
       {
         "name": "Drivers",
@@ -412,7 +440,8 @@
           "Drivers/BSP",
           "Drivers",
           "user",
-          "RTE/_Target_1"
+          "RTE/_Target_1",
+          "user/FATFs/source"
         ],
         "libList": [],
         "defineList": [
