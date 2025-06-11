@@ -21,7 +21,7 @@
             进入错误处理循环
             使能外设时钟（此处开启GPIOE时钟）
 */
-void RCC_config(uint32_t RCC_PLLMul_x)
+void RCC_Config(uint32_t RCC_PLLMul_x)
 {
     RCC_DeInit();
     RCC_HSEConfig(RCC_HSE_ON);                    // Enable HSE

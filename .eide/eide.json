@@ -427,7 +427,7 @@
           "cpuName": "STM32F103ZE"
         },
         "proType": 1,
-        "speed": 8000,
+        "speed": 50000,
         "otherCmds": ""
       },
       "uploadConfigMap": {},

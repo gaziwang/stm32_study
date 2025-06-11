@@ -16,44 +16,17 @@
 #define SPI2_FLASH  0 /* Example: Map Ramdisk to physical drive 0 */
 #define DEV_MMC     1 /* Example: Map MMC/SD card to physical drive 1 */
 #define DEV_USB     2 /* Example: Map USB MSD to physical drive 2 */
-#define SECTOR_SIZE 4096
+#define SECTOR_SIZE       512
+#define FLASH_SECTOR_NUM  32768  // 16MB / 512
+#define FLASH_BLOCK_SIZE  8      // 每个擦除块 4096B = 8 扇区
+#define FLASH_BASE_ADDR   0x000000 // 你可以根据实际文件系统起始设置偏移
 /*-----------------------------------------------------------------------*/
 /* Get Drive Status                                                      */
 /*-----------------------------------------------------------------------*/
 
-DSTATUS disk_status(
-    BYTE pdrv /* Physical drive nmuber to identify the drive */
-)
+DSTATUS disk_status(BYTE pdrv)
 {
-    DSTATUS stat;
-    int result;
-
-    switch (pdrv) {
-        case SPI2_FLASH:
-            result = SPI2_FLASH_ReadID();
-            if (result == 0xEF4018) {
-                stat = RES_OK; // Assume initialization is successful
-            } else {
-                stat = STA_NOINIT; // Initialization failed
-            }
-            // translate the reslut code here
-
-            return stat;
-
-            // case DEV_MMC:
-            //     result = MMC_disk_status();
-
-            //     // translate the reslut code here
-
-            //     return stat;
-
-            // case DEV_USB:
-            //     result = USB_disk_status();
-
-            //     // translate the reslut code here
-
-            //     return stat;
-    }
+    if (pdrv == 0) return RES_OK;
     return STA_NOINIT;
 }
 
@@ -61,36 +34,12 @@ DSTATUS disk_status(
 /* Inidialize a Drive                                                    */
 /*-----------------------------------------------------------------------*/
 
-DSTATUS disk_initialize(
-    BYTE pdrv /* Physical drive nmuber to identify the drive */
-)
+DSTATUS disk_initialize(BYTE pdrv)
 {
-    DSTATUS stat;
-    switch (pdrv) {
-        case SPI2_FLASH:
-            SPI2_Init();
-            if (disk_status(SPI2_FLASH) == 0) {
-                stat = RES_OK; // Assume initialization is successful
-            } else {
-                stat = STA_NOINIT; // Initialization failed
-            }
-            return stat;
+    if (pdrv != 0) return STA_NOINIT;
 
-            // case DEV_MMC:
-            //     result = MMC_disk_initialize();
-
-            //     // translate the reslut code here
-
-            //     return stat;
-
-            // case DEV_USB:
-            //     result = USB_disk_initialize();
-
-            //     // translate the reslut code here
-
-            //     return stat;
-    }
-    return STA_NOINIT;
+    SPI2_Init(); // 初始化SPI硬件
+    return RES_OK;
 }
 
 /*-----------------------------------------------------------------------*/
@@ -98,43 +47,22 @@ DSTATUS disk_initialize(
 /*-----------------------------------------------------------------------*/
 
 DRESULT disk_read(
-    BYTE pdrv,    /* Physical drive nmuber to identify the drive */
-    BYTE *buff,   /* Data buffer to store read data */
-    LBA_t sector, /* Start sector in LBA */
-    UINT count    /* Number of sectors to read */
-)
+    BYTE pdrv,
+    BYTE *buff,
+    LBA_t sector,
+    UINT count)
 {
-    DRESULT res;
+    if (pdrv != 0 || !count) return RES_PARERR;
 
-    switch (pdrv) {
-        case SPI2_FLASH:
-            uint32_t address = sector * SECTOR_SIZE;
-            for (UINT i = 0; i < count; i++) {
-                SPI_FLASH_ReadData(address, buff, SECTOR_SIZE);
-                address += SECTOR_SIZE;
-            }
-            res = RES_OK; // Assume read is successful
-            return res;
+    uint32_t address = FLASH_BASE_ADDR + sector * SECTOR_SIZE;
 
-            // case DEV_MMC:
-            //     // translate the arguments here
-
-            //     result = MMC_disk_read(buff, sector, count);
-
-            //     // translate the reslut code here
-
-            //     return res;
-
-            // case DEV_USB:
-            //     // translate the arguments here
-
-            //     result = USB_disk_read(buff, sector, count);
-
-            //     // translate the reslut code here
-
-            //     return res;
+    for (UINT i = 0; i < count; i++) {
+        SPI2_FLASH_ReadData(address, buff, SECTOR_SIZE);
+        address += SECTOR_SIZE;
+        buff += SECTOR_SIZE;
     }
-    return RES_PARERR;
+
+    return RES_OK;
 }
 
 /*-----------------------------------------------------------------------*/
@@ -144,51 +72,29 @@ DRESULT disk_read(
 #if FF_FS_READONLY == 0
 
 DRESULT disk_write(
-    BYTE pdrv,        /* Physical drive nmuber to identify the drive */
-    const BYTE *buff, /* Data to be written */
-    LBA_t sector,     /* Start sector in LBA */
-    UINT count        /* Number of sectors to write */
-)
+    BYTE pdrv,
+    const BYTE *buff,
+    LBA_t sector,
+    UINT count)
 {
-    DRESULT res;
-    switch (pdrv) {
+    if (pdrv != 0 || !count) return RES_PARERR;
 
-        case SPI2_FLASH:
-            uint32_t address = sector * SECTOR_SIZE;
-            for (UINT i = 0; i < count; i++) {
-                // SPI Flash 不能直接写，需要先擦除再写入
-                SPI_FLASH_SectorErase(address); // 擦除当前扇区（通常4KB）
+    uint32_t address = FLASH_BASE_ADDR + sector * SECTOR_SIZE;
 
-                // 写入一个扇区数据
-                SPI2_FLASH_WriteBytes(address, buff, SECTOR_SIZE);
+    for (UINT i = 0; i < count; i++) {
+        // 🔁 每次都要重新写使能（必须）
+        SPI2_FLASH_Write_Enable();
+        SPI_FLASH_SectorErase(address);
+        Delay_ms(1000); // 等待擦除完成
+        printf("Erasing sector at 0x%08X...\n", address);
+        SPI2_FLASH_Write_Enable();  // 🔁 写入前也要再写使能
+        SPI2_FLASH_WriteBytes(address, buff, SECTOR_SIZE);
 
-                // 更新地址与指针
-                address += SECTOR_SIZE;
-                buff += SECTOR_SIZE;
-            }
-            res = RES_OK;
-            return res;
-
-            // case DEV_MMC:
-            //     // translate the arguments here
-
-            //     result = MMC_disk_write(buff, sector, count);
-
-            //     // translate the reslut code here
-
-            //     return res;
-
-            // case DEV_USB:
-            //     // translate the arguments here
-
-            //     result = USB_disk_write(buff, sector, count);
-
-            //     // translate the reslut code here
-
-            //     return res;
+        address += SECTOR_SIZE;
+        buff += SECTOR_SIZE;
     }
 
-    return RES_PARERR;
+    return RES_OK;
 }
 
 #endif
@@ -197,50 +103,30 @@ DRESULT disk_write(
 /* Miscellaneous Functions                                               */
 /*-----------------------------------------------------------------------*/
 
-DRESULT disk_ioctl(
-    BYTE pdrv, /* Physical drive nmuber (0..) */
-    BYTE cmd,  /* Control code */
-    void *buff /* Buffer to send/receive control data */
-)
+DRESULT disk_ioctl(BYTE pdrv, BYTE cmd, void *buff)
 {
-    DRESULT res;
+    if (pdrv != 0) return RES_PARERR;
 
-    switch (pdrv) {
-        case SPI2_FLASH:
-            switch (cmd) {
-                case CTRL_SYNC:
+    switch (cmd)
+    {
+        case CTRL_SYNC:
+            return RES_OK;
 
-                    break;
+        case GET_SECTOR_SIZE:
+            *(WORD *)buff = SECTOR_SIZE;
+            return RES_OK;
 
-                case GET_SECTOR_COUNT:
-                    *(DWORD *)buff = 4096;
-                    break;
-                case GET_SECTOR_SIZE:
-                    *(DWORD *)buff = SECTOR_SIZE;
-                    break;
-                case GET_BLOCK_SIZE:
-                    *(DWORD *)buff = 16;
-                    ;
-                    break;
-            }
-            // Process of the command for the RAM drive
+        case GET_BLOCK_SIZE:
+            *(DWORD *)buff = FLASH_BLOCK_SIZE;
+            return RES_OK;
 
-            return res;
+        case GET_SECTOR_COUNT:
+            *(DWORD *)buff = FLASH_SECTOR_NUM;
+            return RES_OK;
 
-            // case DEV_MMC:
-
-            //     // Process of the command for the MMC/SD card
-
-            //     return res;
-
-            // case DEV_USB:
-
-            //     // Process of the command the USB drive
-
-            //     return res;
+        default:
+            return RES_PARERR;
     }
-
-    return RES_PARERR;
 }
 DWORD get_fattime(void) {
     const char *months[] = {"Jan","Feb","Mar","Apr","May","Jun",

@@ -40,3 +40,5 @@
 .\objects\main.o: .\Drivers\BSP\HSE_Set.h
 .\objects\main.o: .\Drivers\BSP\Dma.h
 .\objects\main.o: .\Drivers\BSP\i2c.h
+.\objects\main.o: .\user\FATFs\source\ff.h
+.\objects\main.o: .\user\FATFs\source\ffconf.h
