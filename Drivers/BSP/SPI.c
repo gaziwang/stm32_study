@@ -83,6 +83,7 @@ void SPI_FLASH_SectorErase(uint32_t sectorAddress)
     SPI2_FLASH_Send_byte((sectorAddress >> 8) & 0xFF);  // 发送中间字节地址
     SPI2_FLASH_Send_byte(sectorAddress & 0xFF);         // 发送低字节地址
     GPIO_SetBits(GPIOB, GPIO_Pin_12);                   // CS 拉高
+    SPI_FLASH_WaitBusy();                               // 等待擦除完成
 }
 void SPI2_FLASH_WriteByte(uint32_t address, uint8_t *data, uint32_t length)
 {
@@ -163,4 +164,5 @@ int SPI2_FLASH_ReadData(uint32_t address, uint8_t *buffer, uint32_t length)
         buffer[i] = SPI2_FLASH_Send_byte(0xFF); // 0xFF 是 Dummy Byte
     }
     GPIO_SetBits(GPIOB, GPIO_Pin_12); // CS 拉高
+    return 0; // 返回0表示成功
 }

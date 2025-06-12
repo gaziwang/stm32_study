@@ -30,3 +30,5 @@
 .\objects\spi.o: .\Drivers\CMSIS\stm32f10x_wwdg.h
 .\objects\spi.o: .\Drivers\CMSIS\misc.h
 .\objects\spi.o: .\Drivers\CMSIS\system\Delay.h
+.\objects\spi.o: Drivers\BSP\usart.h
+.\objects\spi.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h

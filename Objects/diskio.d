@@ -33,5 +33,6 @@
 .\objects\diskio.o: .\Drivers\CMSIS\stm32f10x_wwdg.h
 .\objects\diskio.o: .\Drivers\CMSIS\misc.h
 .\objects\diskio.o: .\Drivers\CMSIS\system\Delay.h
-.\objects\diskio.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+.\objects\diskio.o: .\Drivers\BSP\usart.h
 .\objects\diskio.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+.\objects\diskio.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h

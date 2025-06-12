@@ -18,17 +18,17 @@ extern uint8_t key_flag;
 // uint8_t RX_Buffer[256];               // 接收缓冲区
 // uint8_t TX_Buffer[] = "Test\r\n"; // Send buffer (ASCII only)
 FATFS fs;
-char buf[512];
+char buf[256];
 int main(void)
 {
     RCC_Config(RCC_PLLMul_9);
-    Delay_Init();       // Configure the system clock to 72MHz using PLL with HSE
-    LED_Init();         // Initialize the LED
+    Delay_Init(); // Configure the system clock to 72MHz using PLL with HSE
+    LED_Init();   // Initialize the LED
     // BEEP_Init();        // Initialize the BEEP
     // KEY_Init();         // Initialize the keys
     // LIGHTSENSOR_Init(); // Initialize the light sensor
     // // 1. 先初始化USART3
-    USART3_Init(); // 确保传入波特率参数
+    USART3_Init();                                  // 确保传入波特率参数
     USART_SendString(USART3, "USART3 Have Enable"); // Send a test string to USART3
     // EXTI_key1_config();
     // EXTI_key0_config();
@@ -42,7 +42,7 @@ int main(void)
     // SoftI2C_WriteByte(0xFF, 0x22);                  // 写入数据到EEPROM
     // uint8_t read_data = SoftI2C_ReadByteFrom(0xFF); // 从EEPROM读取数据
     // printf("Read data: 0x%02X\r\n", read_data);     // 打印读取的数据
- 
+
     SPI2_Init();
     if (SPI2_FLASH_ReadID() == 0xEF4018) {
         printf("SPI Flash ID: 0x%06X\r\n", SPI2_FLASH_ReadID()); // 打印Flash ID
@@ -52,9 +52,9 @@ int main(void)
 
     Delay_ms(2000); // 延时1秒
     uint8_t status[16] = {0};
-	SPI2_FLASH_Write_Enable();
+    SPI2_FLASH_Write_Enable();
     SPI_FLASH_SectorErase(0x0000); // 擦除扇区0
-    Delay_ms(100); // 等待擦除完成
+    Delay_ms(100);                 // 等待擦除完成
     printf("Erasing sector 0...擦除成功\n");
     SPI2_FLASH_Write_Enable();
     GPIO_ResetBits(GPIOB, GPIO_Pin_12); // CS 拉低
@@ -63,22 +63,22 @@ int main(void)
     SPI2_FLASH_Receive_byte(0x00);
     SPI2_FLASH_Receive_byte(0x00);
     for (int i = 0; i < 3; i++) {
-        status[i] = SPI2_FLASH_Receive_byte(0xFF);  // 接收数据
-        printf("%02X",status[i]);
+        status[i] = SPI2_FLASH_Receive_byte(0xFF); // 接收数据
+        printf("%02X", status[i]);
     }
     printf("\n");
     GPIO_SetBits(GPIOB, GPIO_Pin_12); // CS 拉高
 
     SPI2_FLASH_WriteByte(0x0000, (uint8_t *)"Hello, SPI Flash!", 18); // 写入数据到Flash
-    Delay_ms(100); // 等待写入完成
-    SPI2_FLASH_Write_Enable(); // 发送写使能指令
-    GPIO_ResetBits(GPIOB, GPIO_Pin_12); // CS 拉低
-    SPI2_FLASH_Send_byte(0x03); 
-    SPI2_FLASH_Receive_byte(0x00); 
-    SPI2_FLASH_Receive_byte(0x00); 
-    SPI2_FLASH_Receive_byte(0x00); 
+    Delay_ms(100);                                                    // 等待写入完成
+    SPI2_FLASH_Write_Enable();                                        // 发送写使能指令
+    GPIO_ResetBits(GPIOB, GPIO_Pin_12);                               // CS 拉低
+    SPI2_FLASH_Send_byte(0x03);
+    SPI2_FLASH_Receive_byte(0x00);
+    SPI2_FLASH_Receive_byte(0x00);
+    SPI2_FLASH_Receive_byte(0x00);
     for (int i = 0; i < 17; i++) {
-        status[i] = SPI2_FLASH_Receive_byte(0xFF);  // 接收数据
+        status[i] = SPI2_FLASH_Receive_byte(0xFF); // 接收数据
     }
     printf("Status after write:%.*s\r\n", 17, status);
     for (int i = 0; i < 17; i++) {
@@ -104,28 +104,7 @@ int main(void)
     //         USART_SendString(USART3, "DMA transfer complete!\n");
     //     }
     // }
-    //挂载文件系统
-    FIL file;
-    FRESULT res;
-    char buf[512];
-
-    res = f_mount(&fs, "", 1);
-    if (res == FR_NO_FILESYSTEM) {
-        printf("No filesystem. Formatting...\r\n");
-        res = f_mkfs("", FM_FAT, buf, sizeof(buf));
-        if (res != FR_OK) {
-            printf("Format failed: %d\r\n", res);
-            return;
-        }
-        f_mount(&fs, "", 1); // 重新挂载
+    // 挂载文件系统
+    while (1) {
     }
-
-    f_open(&file, "log.txt", FA_CREATE_ALWAYS | FA_WRITE);
-    f_write(&file, "SPI Flash FAT OK", 16, NULL);
-    f_close(&file);
-    while (1)
-    {
-    }
-    
-
 }

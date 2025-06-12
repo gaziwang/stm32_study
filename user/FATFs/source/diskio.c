@@ -85,7 +85,7 @@ DRESULT disk_write(
         // 🔁 每次都要重新写使能（必须）
         SPI2_FLASH_Write_Enable();
         SPI_FLASH_SectorErase(address);
-        Delay_ms(1000); // 等待擦除完成
+        Delay_ms(100); // 等待擦除完成
         printf("Erasing sector at 0x%08X...\n", address);
         SPI2_FLASH_Write_Enable();  // 🔁 写入前也要再写使能
         SPI2_FLASH_WriteBytes(address, buff, SECTOR_SIZE);
