@@ -90,6 +90,12 @@
           },
           {
             "path": "Drivers/BSP/SPI.h"
+          },
+          {
+            "path": "Drivers/BSP/FSMC_LCD.c"
+          },
+          {
+            "path": "Drivers/BSP/FSMC_LCD.h"
           }
         ],
         "folders": []

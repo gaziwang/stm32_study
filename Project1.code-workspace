@@ -25,7 +25,8 @@
             "string.h": "c",
             "spi.h": "c",
             "diskio.h": "c",
-            "ff.h": "c"
+            "ff.h": "c",
+            "fsmc_lcd.h": "c"
         }
     },
     "extensions": {}
