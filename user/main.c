@@ -13,11 +13,11 @@
 #include "i2c.h"
 #include "SPI.h"
 #include "ff.h"
-
+#include "FSMC_LCD.h"
 extern uint8_t key_flag;
 // uint8_t RX_Buffer[256];               // 接收缓冲区
 // uint8_t TX_Buffer[] = "Test\r\n"; // Send buffer (ASCII only)
-FATFS fs;
+
 char buf[256];
 int main(void)
 {
@@ -43,49 +43,49 @@ int main(void)
     // uint8_t read_data = SoftI2C_ReadByteFrom(0xFF); // 从EEPROM读取数据
     // printf("Read data: 0x%02X\r\n", read_data);     // 打印读取的数据
 
-    SPI2_Init();
-    if (SPI2_FLASH_ReadID() == 0xEF4018) {
-        printf("SPI Flash ID: 0x%06X\r\n", SPI2_FLASH_ReadID()); // 打印Flash ID
-    } else {
-        printf("SPI Flash Initialization Failed\r\n");
-    }
+    // SPI2_Init();
+    // if (SPI2_FLASH_ReadID() == 0xEF4018) {
+    //     printf("SPI Flash ID: 0x%06X\r\n", SPI2_FLASH_ReadID()); // 打印Flash ID
+    // } else {
+    //     printf("SPI Flash Initialization Failed\r\n");
+    // }
 
-    Delay_ms(2000); // 延时1秒
-    uint8_t status[16] = {0};
-    SPI2_FLASH_Write_Enable();
-    SPI_FLASH_SectorErase(0x0000); // 擦除扇区0
-    Delay_ms(100);                 // 等待擦除完成
-    printf("Erasing sector 0...擦除成功\n");
-    SPI2_FLASH_Write_Enable();
-    GPIO_ResetBits(GPIOB, GPIO_Pin_12); // CS 拉低
-    SPI2_FLASH_Send_byte(0x03);
-    SPI2_FLASH_Receive_byte(0x00);
-    SPI2_FLASH_Receive_byte(0x00);
-    SPI2_FLASH_Receive_byte(0x00);
-    for (int i = 0; i < 3; i++) {
-        status[i] = SPI2_FLASH_Receive_byte(0xFF); // 接收数据
-        printf("%02X", status[i]);
-    }
-    printf("\n");
-    GPIO_SetBits(GPIOB, GPIO_Pin_12); // CS 拉高
+    // Delay_ms(2000); // 延时1秒
+    // uint8_t status[16] = {0};
+    // SPI2_FLASH_Write_Enable();
+    // SPI_FLASH_SectorErase(0x0000); // 擦除扇区0
+    // Delay_ms(100);                 // 等待擦除完成
+    // printf("Erasing sector 0...擦除成功\n");
+    // SPI2_FLASH_Write_Enable();
+    // GPIO_ResetBits(GPIOB, GPIO_Pin_12); // CS 拉低
+    // SPI2_FLASH_Send_byte(0x03);
+    // SPI2_FLASH_Receive_byte(0x00);
+    // SPI2_FLASH_Receive_byte(0x00);
+    // SPI2_FLASH_Receive_byte(0x00);
+    // for (int i = 0; i < 3; i++) {
+    //     status[i] = SPI2_FLASH_Receive_byte(0xFF); // 接收数据
+    //     printf("%02X", status[i]);
+    // }
+    // printf("\n");
+    // GPIO_SetBits(GPIOB, GPIO_Pin_12); // CS 拉高
 
-    SPI2_FLASH_WriteByte(0x0000, (uint8_t *)"Hello, SPI Flash!", 18); // 写入数据到Flash
-    Delay_ms(100);                                                    // 等待写入完成
-    SPI2_FLASH_Write_Enable();                                        // 发送写使能指令
-    GPIO_ResetBits(GPIOB, GPIO_Pin_12);                               // CS 拉低
-    SPI2_FLASH_Send_byte(0x03);
-    SPI2_FLASH_Receive_byte(0x00);
-    SPI2_FLASH_Receive_byte(0x00);
-    SPI2_FLASH_Receive_byte(0x00);
-    for (int i = 0; i < 17; i++) {
-        status[i] = SPI2_FLASH_Receive_byte(0xFF); // 接收数据
-    }
-    printf("Status after write:%.*s\r\n", 17, status);
-    for (int i = 0; i < 17; i++) {
-        printf("%c", status[i]);
-    }
-    printf("\r\n");
-    GPIO_SetBits(GPIOB, GPIO_Pin_12); // CS 拉高
+    // SPI2_FLASH_WriteByte(0x0000, (uint8_t *)"Hello, SPI Flash!", 18); // 写入数据到Flash
+    // Delay_ms(100);                                                    // 等待写入完成
+    // SPI2_FLASH_Write_Enable();                                        // 发送写使能指令
+    // GPIO_ResetBits(GPIOB, GPIO_Pin_12);                               // CS 拉低
+    // SPI2_FLASH_Send_byte(0x03);
+    // SPI2_FLASH_Receive_byte(0x00);
+    // SPI2_FLASH_Receive_byte(0x00);
+    // SPI2_FLASH_Receive_byte(0x00);
+    // for (int i = 0; i < 17; i++) {
+    //     status[i] = SPI2_FLASH_Receive_byte(0xFF); // 接收数据
+    // }
+    // printf("Status after write:%.*s\r\n", 17, status);
+    // for (int i = 0; i < 17; i++) {
+    //     printf("%c", status[i]);
+    // }
+    // printf("\r\n");
+    // GPIO_SetBits(GPIOB, GPIO_Pin_12); // CS 拉高
     // while (1) {
     //     if (key_flag) {
     //         key_flag = 0;
@@ -104,7 +104,11 @@ int main(void)
     //         USART_SendString(USART3, "DMA transfer complete!\n");
     //     }
     // }
-    // 挂载文件系统
+    LCD_GPIO_Init();
+    LCD_FSMC_Config();
+    GPIO_ResetBits(GPIOB,GPIO_Pin_0);
+    printf("LCD_ID:0x%d\r\n",ILI9341_ReadID());
+    printf("ILI9341_Read_Display_Pixel_Format结果为:0x%x\r\n",ILI9341_Read_Display_Pixel_Format());
     while (1) {
     }
 }
